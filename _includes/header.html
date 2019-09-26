@@ -11,6 +11,7 @@
 {% assign user = site.github.owner %}
 
 {% if page.path contains '_posts' %}
+  {% assign repo_url = page.repo %}
   {% assign page_title = page.title %}
   {% assign meta_description = page.content | strip_html | strip_newlines | xml_escape | truncate: 300 %}
 {% else %}
