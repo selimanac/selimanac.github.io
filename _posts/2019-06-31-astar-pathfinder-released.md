@@ -3,6 +3,7 @@ title: "A* Path Finding for Defold Engine Released"
 published: true
 excerpt_separator: <!--more-->
 repo: defold-astar
+tags: [defold, madewithdefold]
 ---
 
 ![A* Path Finding for Defold Engine](https://github.com/selimanac/defold-astar/blob/master/assets/defoldheader.png?raw=true){: .fit-image}

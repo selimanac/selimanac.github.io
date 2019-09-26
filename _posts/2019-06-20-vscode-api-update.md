@@ -2,6 +2,7 @@
 title: "Defold API Snippets v1.2"
 published: true
 repo: defold-vsc-snippets
+tags: [defold, madewithdefold]
 ---
 Updated to 1.2.0
 

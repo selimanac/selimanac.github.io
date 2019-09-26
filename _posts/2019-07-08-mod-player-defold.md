@@ -3,6 +3,7 @@ title: "Mod Player for Defold Engine Released"
 published: true
 excerpt_separator: <!--more-->
 repo: defold-modplayer
+tags: [defold, madewithdefold]
 ---
 
 ![ModPlayer](https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/defoldheader.png?raw=true){: .fit-image}

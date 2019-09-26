@@ -3,6 +3,7 @@ title: "DAABBCC v2.0 Released"
 published: true
 excerpt_separator: <!--more-->
 repo: DAABBCC
+tags: [defold, madewithdefold]
 ---
 
 ![DAABBCC](https://github.com/selimanac/DAABBCC/blob/v2.0/assets/header.png?raw=true){: .fit-image}

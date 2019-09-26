@@ -3,6 +3,7 @@ title: "Defold API Snippets for Visual Studio Code"
 published: true
 excerpt_separator: <!--more-->
 repo: defold-vsc-snippets
+tags: [defold, madewithdefold]
 ---
 
 ![Defold API Snippets for Visual Studio Code](/assets/gfx/vscode-api-2000x666.png){: .fit-image}

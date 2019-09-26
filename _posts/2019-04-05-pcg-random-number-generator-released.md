@@ -3,6 +3,7 @@ title: "PCG Random Number Generator for Defold Released"
 published: true
 excerpt_separator: <!--more-->
 repo: defold-random
+tags: [defold, madewithdefold]
 ---
 
 ![PCG Random Number Generator](/assets/gfx/pcg-header-2000x666.png){: .fit-image}
