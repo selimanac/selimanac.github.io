@@ -14,7 +14,7 @@ Physics Body Editor for Defold v1.5.0 has been released.
 
 
 
-I was in research for one of our game prototypes which requires custom collision shapes. I came across the  Physics Body Editor was originally developed by [Aurelien Ribon](http://www.aurelienribon.com/). But its internal system was designed to use with libGDX.   So I decided to make my own exporter for Defold build top on the editor.
+I was in research for one of our game prototype which requires custom collision shapes. I came across the  Physics Body Editor was originally developed by [Aurelien Ribon](http://www.aurelienribon.com/). But its internal system was designed to use with libGDX.   So I decided to make my own exporter for Defold build top on the editor.
 
 This is the modified version of Physics Body Editor for Defold Game Engine compatibility. I made a lots of breaking changes, improvements, added new functionalities and bug fixes.
 
