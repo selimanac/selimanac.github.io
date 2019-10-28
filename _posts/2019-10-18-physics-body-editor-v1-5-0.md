@@ -1,5 +1,5 @@
 ---
-title: "Physics Body Editor Released"
+title: "Physics Body Editor v1.5.0 Released"
 published: true
 excerpt_separator: <!--more-->
 repo: physics-body-editor

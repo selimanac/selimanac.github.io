@@ -1,5 +1,5 @@
 ---
-title: "Tiny Http Released"
+title: "Tiny Http v1.0 Released"
 published: true
 excerpt_separator: <!--more-->
 repo: defold-tiny-http
