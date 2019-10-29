@@ -24,7 +24,7 @@ Server runs on separate thread, it is not a blocker.  Client has a thread pool. 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/smx5nbnTHQs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of Event ID is to made grouping and parsing the triggers on the server-side easily.
+There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of Event ID is to grouping and parsing the triggers on the server-side easily.
 
 Client is here to simplify things when using Defold. But of course you can use build-in [http requests](https://defold.com/ref/http/). If you want to use build-in [http requests](https://defold.com/ref/http/) and Event-IDs, you can simply pass it like this:
 
