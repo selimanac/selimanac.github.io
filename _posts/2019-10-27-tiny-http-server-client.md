@@ -18,13 +18,13 @@ Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Joxp3cJadxI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Server runs on separate thread so it is not a blocker.  Client has a thread pool. But timeouts may block the UI for 5 sec. Server [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) are definable. You can add your GET/POST [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) by using regex.
+Server runs on separate thread, it is not a blocker.  Client has a thread pool. But timeouts may block the UI for 5 sec. Server [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) are definable. You can add your GET/POST [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) by using regex.
 
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/smx5nbnTHQs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of this to track and group the triggers on the server-side easily.
+There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of Event ID is to made grouping and parsing the triggers on the server-side easily.
 
 Client is here to simplify things when using Defold. But of course you can use build-in [http requests](https://defold.com/ref/http/). If you want to use build-in [http requests](https://defold.com/ref/http/) and Event-IDs, you can simply pass it like this:
 
