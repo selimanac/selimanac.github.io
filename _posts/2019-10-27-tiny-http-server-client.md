@@ -12,7 +12,7 @@ tags: [defold, madewithdefold]
 
 <!--more-->
 
-Main purpose of this extension is simplifying workflow with the external tools like level editors or IDEs. Reload your level files, change assets on the fly... You can easily trigger almost everything on the running game from everywhere. It works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported.
+Main purpose of this extension is simplifying workflow with the external tools like level editors or IDEs. Reload your level files, change assets on the fly... You can easily trigger almost everything on the running game from everywhere. Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Joxp3cJadxI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
