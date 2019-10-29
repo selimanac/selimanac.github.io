@@ -12,11 +12,11 @@ tags: [defold, madewithdefold]
 
 <!--more-->
 
-Main purpose of this extension is simplifying workflow with the external tools like level editors or IDEs. Reload your level files, change assets on the fly... You can easily trigger almost everything on the running game from everywhere.
+Main purpose of this extension is simplifying workflow with the external tools like level editors or IDEs. Reload your level files, change assets on the fly... You can easily trigger almost everything on the running game from everywhere. It works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Joxp3cJadxI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Server runs on separate thread so it is not a blocker. I tested on Mac OS, Win 10 and iOS. It should work on Android too. Client has a thread pool. But timeouts may block the UI for 5 sec.
+Server runs on separate thread so it is not a blocker.  Client has a thread pool. But timeouts may block the UI for 5 sec.
 
 Server [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) are definable. You can add your GET/POST [endpoints](https://github.com/selimanac/defold-tiny-http#endpoints) by using regex.
 
