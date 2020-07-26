@@ -1,0 +1,1708 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on Selim Anaç</title>
+		<link>https://selimanac.github.io/posts/</link>
+		<description>Recent content in Posts on Selim Anaç</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+		<lastBuildDate>Tue, 29 Oct 2019 10:44:44 +0300</lastBuildDate>
+		<atom:link href="https://selimanac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Tiny Http – Server and Client for Defold</title>
+			<link>https://selimanac.github.io/posts/tiny-http-for-defold/</link>
+			<pubDate>Tue, 29 Oct 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/tiny-http-for-defold/</guid>
+			<description>Tiny Http - Defold Native Extension is a simple http server and client.
+Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&amp;rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/tiny_http_dark.png"
+         alt="Human Trials"/> 
+</figure>
+
+<p><a href="https://github.com/selimanac/defold-tiny-http">Tiny Http</a> - Defold Native Extension is a simple http server and client.</p>
+<p>Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&rsquo;t need it, SSL not supported. But it is <a href="https://github.com/yhirose/cpp-httplib#openssl-support">possible</a> to add this feature, feel free to PR if you want to.</p>
+<p>All requests and responses are JSON. You may consider of using <a href="https://github.com/Melsoft-Games/defold-cjson">CJSON</a> for encoding and decoding.</p>
+<p>All server responses for GET requests are static echo. POST responses are limited but customizable by using <a href="#dhttpserver_post_contentjson"><code>dhttp.server_post_content</code></a>.</p>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/Joxp3cJadxI" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p>Server runs on separate thread, it is not a blocker. Client has a thread pool. But timeouts may block the UI for 5 sec. Server <a href="https://github.com/selimanac/defold-tiny-http#endpoints">endpoints</a> are definable. You can add your GET/POST <a href="https://github.com/selimanac/defold-tiny-http#endpoints">endpoints</a> by using regex.</p>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/smx5nbnTHQs" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p>There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of Event ID is to grouping and parsing the triggers on the server-side easily.</p>
+<p>Client is here to simplify things when using Defold. But of course you can use build-in <a href="https://defold.com/ref/http/">http requests</a>. If you want to use build-in <a href="https://defold.com/ref/http/">http requests</a> and Event-IDs, you can simply pass it like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="kd">local</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="s2">&#34;Event-ID&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span>
+<span class="p">}</span>
+
+<span class="n">http.request</span><span class="p">(</span><span class="s2">&#34;http://127.0.0.1:8800/monster/1&#34;</span><span class="p">,</span> <span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="n">http_result</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+
+</code></pre></div><p> </p>
+<p>Or with Curl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">
+curl --header <span class="se">\\</span><span class="s2">&#34;Event-ID: 1\\&#34;</span> http://localhost:8800/monster/1
+
+</code></pre></div><p> 
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/5G8O6dzLoVM" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+</p>
+<h2 id="installation">Installation</h2>
+<p>You can use Tiny Http in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>. Open your game.project file and in the dependencies field under project add:</p>
+<pre><code>https://github.com/selimanac/defold-tiny-http/archive/master.zip
+</code></pre>
+<hr>
+<h2 id="examples">Examples</h2>
+<p>Detailed server and client examples can be found in <a href="https://github.com/selimanac/defold-tiny-http/tree/master/examples">examples</a> folder.</p>
+<h3 id="server">Server</h3>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="c1">-- Server settings</span>
+<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+<span class="kd">local</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">8800</span>
+
+<span class="c1">-- Server callbacks</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">server_callbacks</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+	<span class="c1">-- Decode response</span>
+    <span class="kd">local</span> <span class="n">jresult</span> <span class="o">=</span> <span class="n">json.decode</span><span class="p">(</span><span class="n">message.result</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">message.event_id</span>
+
+    <span class="kr">if</span> <span class="n">jresult.server_status</span> <span class="o">==</span> <span class="n">dhttp.SERVER_START</span> <span class="kr">then</span>
+        <span class="c1">-- Server started</span>
+    <span class="kr">elseif</span> <span class="n">jresult.server_status</span> <span class="o">==</span> <span class="n">dhttp.SERVER_STOP</span> <span class="kr">then</span>
+        <span class="c1">-- Server stopped</span>
+    <span class="kr">else</span>
+    	<span class="kr">if</span> <span class="n">event_id</span> <span class="o">==</span> <span class="mi">123</span> <span class="kr">then</span>
+        	<span class="n">pprint</span><span class="p">(</span><span class="n">jresult</span><span class="p">)</span>
+        	<span class="c1">-- Do something fancy</span>
+       <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="c1">-- Start the server</span>
+    <span class="n">dhttp.server_start</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">server_callbacks</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h3 id="client">Client</h3>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="c1">-- Client settings</span>
+<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+<span class="kd">local</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">8800</span>
+
+<span class="c1">-- Client callbacks</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">client_callbacks</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+    <span class="c1">-- Decode response</span>
+    <span class="kd">local</span> <span class="n">jresult</span> <span class="o">=</span> <span class="n">json.decode</span><span class="p">(</span><span class="n">message.result</span><span class="p">)</span>
+
+    <span class="c1">-- Check error</span>
+    <span class="kr">if</span> <span class="n">jresult.error</span> <span class="kr">then</span>
+        <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Error: &#34;</span><span class="p">,</span> <span class="n">jresult.error</span><span class="p">)</span>
+        <span class="kr">return</span>
+    <span class="kr">end</span>
+
+    <span class="n">pprint</span><span class="p">(</span><span class="n">jresult</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="c1">-- Init the client</span>
+    <span class="n">dhttp.client_start</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">client_callbacks</span><span class="p">)</span>
+
+    <span class="c1">-- Get endpoint</span>
+    <span class="n">dhttp.client_get</span><span class="p">(</span><span class="s2">&#34;/hi&#34;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h2 id="server-api">Server API</h2>
+<h4 id="dhttpserver_starthost-port-callback-log-error-endpoints">dhttp.server_start(<code>host</code>, <code>port</code>, <code>callback</code>, <code>[log]</code>, <code>[error]</code>, <code>[endpoints]</code>)</h4>
+<p>Init and start the server.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>(<em>string</em>) Host address or IP</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>(<em>int</em>) Port number</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td>(<em>function</em>) Callback function</td>
+</tr>
+<tr>
+<td><code>[log]</code></td>
+<td>(<em>boolean</em>) Turn logging on/off. Default is false</td>
+</tr>
+<tr>
+<td><code>[error]</code></td>
+<td>(<em>boolean</em>) Turn error responses on/off. Default is true</td>
+</tr>
+<tr>
+<td><code>[endpoints]</code></td>
+<td>(<em>table</em>) Optional endpoints</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dhttpserver_stop">dhttp.server_stop()</h4>
+<p>Gracefully shutdown the server.</p>
+<h4 id="dhttpis_server_running">dhttp.is_server_running()</h4>
+<p>Check if server is running. Returns boolean.</p>
+<h4 id="dhttpserver_post_contentcontent">dhttp.server_post_content(<code>content</code>)</h4>
+<p>Sets the POST response for all POST endpoints. You can set this anytime.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content </code></td>
+<td>(string) JSON formated string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="endpoints">Endpoints</h3>
+<p>There are several built-in endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&ldquo;/hi&rdquo;</td>
+<td>Says hi!</td>
+</tr>
+<tr>
+<td>&ldquo;/num/(\d+)&rdquo;</td>
+<td>(<em>GET</em>) Gets only [0-9] as integer</td>
+</tr>
+<tr>
+<td>&ldquo;/str/(\w+)&rdquo;</td>
+<td>(<em>GET</em>) Gets only [a-zA-Z0-9] as string</td>
+</tr>
+<tr>
+<td>&ldquo;/post&rdquo;</td>
+<td>(<em>POST</em>) Generic post endpoint with params</td>
+</tr>
+<tr>
+<td>&ldquo;/stop&rdquo;</td>
+<td>(<em>GET</em>) Stop the server</td>
+</tr>
+</tbody>
+</table>
+<p>You can define custom endpoints.<br>
+Endpoints support regex. But &ldquo;?&rdquo; character is reserved and may cause a crash.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">endpoints</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="n">endpoint_type</span> <span class="o">=</span> <span class="n">dhttp.METHOD_GET</span><span class="p">,</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&#34;/monster/(</span><span class="se">\\</span><span class="s2">d+)&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="n">endpoint_type</span> <span class="o">=</span> <span class="n">dhttp.METHOD_POST</span><span class="p">,</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&#34;/move&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">dhttp.server_start</span><span class="p">(</span><span class="s2">&#34;localhost&#34;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">,</span> <span class="n">server_callbacks</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">)</span>
+
+</code></pre></div><h2 id="client-api">Client API</h2>
+<h4 id="dhttpclient_starthost-port-client_callbacks">dhttp.client_start(<code>host</code>, <code>port</code>, <code>client_callbacks</code>)</h4>
+<p>Init the client.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>(<em>string</em>) Host address or IP</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>(<em>int</em>) Port number</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td>(<em>function</em>) Callback function</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dhttpclient_hi">dhttp.client_hi()</h4>
+<p>Defold says hi!</p>
+<h4 id="dhttpclient_getendpoint-event_id">dhttp.client_get(<code>endpoint</code>, <code>[event_id]</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>endpoint</code></td>
+<td>(<em>string</em>) Endpoint address</td>
+</tr>
+<tr>
+<td><code>[event_id]</code></td>
+<td>(<em>int</em>) Event ID for tracking the action</td>
+</tr>
+</tbody>
+</table>
+<p>Event IDs are for tracking the requests on server and client. They send as a header. You can easily group and parse your triggers by using event ids.</p>
+<h4 id="dhttpclient_postendpoint-params-event_id">dhttp.client_post(<code>endpoint</code>, <code>params</code>, <code>[event_id]</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>endpoint</code></td>
+<td>(<em>string</em>) Endpoint address</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td>(<em>string</em>) JSON formated string</td>
+</tr>
+<tr>
+<td><code>[event_id]</code></td>
+<td>(<em>int</em>) Event ID for tracking the action</td>
+</tr>
+</tbody>
+</table>
+<p>Event IDs are for tracking the requests on server and client. They send as a header. You can easily group and parse your triggers by using event ids.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">temp_table</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="p">}</span>
+
+    <span class="n">jresult</span> <span class="o">=</span> <span class="n">cjson.encode</span><span class="p">(</span><span class="n">temp_table</span><span class="p">)</span>
+
+    <span class="kd">local</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">jresult</span>
+    <span class="p">}</span>
+
+    <span class="n">dhttp.client_post</span><span class="p">(</span><span class="s2">&#34;/post&#34;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div><h4 id="constants">Constants</h4>
+<h5 id="dhttpmethod_get">dhttp.METHOD_GET</h5>
+<h5 id="dhttpmethod_post">dhttp.METHOD_POST</h5>
+<h5 id="dhttpserver_start">dhttp.SERVER_START</h5>
+<h5 id="dhttpserver_stop-1">dhttp.SERVER_STOP</h5>
+<h2 id="dependencies">Dependencies</h2>
+<p>Build by using <a href="https://github.com/yhirose/cpp-httplib">cpp-httplib</a><br>
+Characters by <a href="https://twitter.com/bevouliin">@bevouliin</a></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Physics Body Editor for Defold [Deprecated]</title>
+			<link>https://selimanac.github.io/posts/physics-body-editor-for-defold/</link>
+			<pubDate>Tue, 22 Oct 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/physics-body-editor-for-defold/</guid>
+			<description>Physics Body Editor for Defold v1.5.0 has been released.
+I was in research for one of our game prototype which requires custom collision shapes. I came across the Physics Body Editor was originally developed by Aurelien Ribon. But its internal system was designed to use with libGDX. So I decided to make my own exporter for Defold build top on the editor.
+This is the modified version of Physics Body Editor for Defold Game Engine compatibility.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/pbe_header.png"
+         alt="Human Trials"/> 
+</figure>
+
+<p>Physics Body Editor for Defold v1.5.0 has been released.</p>
+<p>I was in research for one of our game prototype which requires custom collision shapes. I came across the Physics Body Editor was originally developed by <a href="http://www.aurelienribon.com/">Aurelien Ribon</a>. But its internal system was designed to use with libGDX. So I decided to make my own exporter for Defold build top on the editor.</p>
+<p>This is the modified version of Physics Body Editor for Defold Game Engine compatibility. I made a lots of breaking changes, improvements, added new functionalities and bug fixes.</p>
+<h1 id="download">Download</h1>
+<p>More info and <strong>manual</strong> is available here:<br>
+<a href="https://selimanac.github.io/physics-body-editor/">https://selimanac.github.io/physics-body-editor/</a></p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Convex shape file generation</li>
+<li>GameObject file generation</li>
+<li>Pivot point</li>
+<li>Grids and snap</li>
+<li>Multiple shapes in same body</li>
+</ul>
+<h3 id="tutorial-video">Tutorial video</h3>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/-L3_OLw9zbg" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<h3 id="release-notes">Release Notes</h3>
+<h4 id="150">1.5.0</h4>
+<ul>
+<li>All dependencies updated.</li>
+<li>New dark theme GUI.</li>
+<li>New coordinate system.</li>
+<li>New zoom level and pivot(origin) functionallties.</li>
+<li>Defold Exporter with .convexshapes and .go files.</li>
+<li>Lots of major &amp; minor bugs fixed.</li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>A* Path Finding for Defold Engine</title>
+			<link>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</link>
+			<pubDate>Wed, 31 Jul 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</guid>
+			<description>This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+Defold Asset Portal
+Github
+Simple Examples
+     Installation You can use the A* extension in your own project by adding this project as a Defold library dependency.
+Open your game.project file and in the dependencies field under project add:
+ https://github.com/selimanac/defold-astar/archive/master.zip
+ Examples https://github.com/selimanac/defold-astar-examples
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/astar_header.png"
+         alt="Human Trials"/> 
+</figure>
+
+<p>This is a path finder and A* solver (astar or a-star) native extension for <a href="https://www.defold.com/">Defold Engine</a> build on <a href="https://github.com/leethomason/MicroPather">MicroPather</a>.</p>
+<p><strong><a href="https://www.defold.com/community/projects/150885/">Defold Asset Portal</a></strong><br>
+<strong><a href="https://github.com/selimanac/defold-astar">Github</a></strong><br>
+<strong><a href="https://github.com/selimanac/defold-astar-examples">Simple Examples</a></strong></p>
+<p>
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/ywPEegHxHOU" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/3xrmdEkHpYo" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+</p>
+<h2 id="installation">Installation</h2>
+<p>You can use the A* extension in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>.<br>
+Open your game.project file and in the dependencies field under project add:</p>
+<blockquote>
+<p><a href="https://github.com/selimanac/defold-astar/archive/master.zip">https://github.com/selimanac/defold-astar/archive/master.zip</a></p>
+</blockquote>
+<h2 id="examples">Examples</h2>
+<p><a href="https://github.com/selimanac/defold-astar-examples">https://github.com/selimanac/defold-astar-examples</a></p>
+<h2 id="api">API</h2>
+<h3 id="astarsetupmap_width-map_height-direction-allocate-typical_adjacent-cache">astar.setup(<code>map_width</code>, <code>map_height</code>, <code>direction</code>, <code>allocate</code>, <code>typical_adjacent</code>, <code>cache</code>)</h3>
+<h5 id="map_width"><code>map_width</code></h5>
+<p>Width of your map. This is generally width of your tilemap.</p>
+<h5 id="map_height"><code>map_height</code></h5>
+<p>Height of your map. This is generally width of your tilemap.</p>
+<h5 id="direction"><code>direction</code></h5>
+<p>Movement direction. You have two options:<br>
+<strong>astar.DIRECTION_FOUR</strong>: On a square grid that allows 4 directions of movement using <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#manhattan-distance">Manhattan distance</a><br>
+<strong>astar.DIRECTION_EIGHT</strong>: On a square grid that allows 8 directions of movement using <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#euclidean-distance">Euclidean distance</a></p>
+<h5 id="allocate"><code>allocate</code></h5>
+<p>How many states should be internally allocated at a time. This can be hard to get correct. The higher the value, the more memory Patfinder will use.</p>
+<ul>
+<li>If you have a small map (a few thousand states?) it may make sense to pass in the maximum value. This will cache everything, and MicroPather will only need one main memory allocation. For a chess board, allocate  would be set to 8x8 (64)</li>
+<li>If your map is large, something like 1/4 the number of possible states is good.</li>
+<li>If your state space is huge, use a multiple (5-10x) of the normal path. &ldquo;Occasionally&rdquo; call <code>astar.reset_cache()</code> to free unused memory.</li>
+</ul>
+<h5 id="typical_adjacent"><code>typical_adjacent</code></h5>
+<p>Used to determine cache size. The typical number of adjacent states to a given state. (On a chessboard, 8.) Higher values use a little more memory.</p>
+<h5 id="cache"><code>cache</code></h5>
+<p>Turn on path caching. Uses more memory (yet again) but at a huge speed advantage if you may call the pather with the same path or sub-path, which is common for pathing over maps in games.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">map_width</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="kd">local</span> <span class="n">map_height</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="kd">local</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">astar.DIRECTION_EIGHT</span>
+<span class="kd">local</span> <span class="n">allocate</span> <span class="o">=</span> <span class="n">map_width</span> <span class="o">*</span> <span class="n">map_height</span>
+<span class="kd">local</span> <span class="n">typical_adjacent</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="kd">local</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">true</span>
+
+<span class="n">astar.setup</span><span class="p">(</span><span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">allocate</span><span class="p">,</span> <span class="n">typical_adjacent</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
+</code></pre></div><h3 id="astarset_mapworld">astar.set_map(<code>world</code>)</h3>
+<p>Set your map data.<br>
+*Setting new map data reset the current cache.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">world</span> <span class="o">=</span> <span class="p">{</span>
+<span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+<span class="mi">0</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+<span class="mi">0</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+<span class="mi">0</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span><span class="p">,</span>
+<span class="mi">2</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="n">astar.set_map</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+</code></pre></div><h3 id="astarset_costscosts">astar.set_costs(<code>costs</code>)</h3>
+<p>Set costs for your walkable tiles on your <code>world</code> table. This table keys determines the walkable area. In this example only numbered &ldquo;2&rdquo; tiles are walkable.</p>
+<p>Table&rsquo;s sum must be the <code>astar.DIRECTION_FOUR</code> or <code>astar.DIRECTION_EIGHT</code>. In this example we want to move 8 direction.</p>
+<p>*Setting new cost data reset the current cache.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">costs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- E</span>
+        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- N</span>
+        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- W</span>
+        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- S</span>
+        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- NE</span>
+        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- NW</span>
+        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- SW</span>
+        <span class="mf">1.41</span> <span class="c1">-- SE</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">astar.set_costs</span><span class="p">(</span><span class="n">costs</span><span class="p">)</span>
+</code></pre></div><h3 id="astarsolvestart_x-start_y-end_x-end_y">astar.solve(<code>start_x</code>, <code>start_y</code>, <code>end_x</code>, <code>end_y</code>)</h3>
+<p>Solves the path.<br>
+Returns multiple values:</p>
+<h5 id="result"><code>result</code></h5>
+<p><strong>astar.SOLVED</strong>: Path solved<br>
+<strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br>
+<strong>astar.START_END_SAME</strong>: Start and End is the same</p>
+<h5 id="size"><code>size</code></h5>
+<p>Size of the path.</p>
+<h5 id="total_cost"><code>total_cost</code></h5>
+<p>Total cost of the path</p>
+<h5 id="path"><code>path</code></h5>
+<p>Table with x and y coordinates. First value is the given start point.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">local</span> <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">local</span> <span class="n">end_x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="kd">local</span> <span class="n">end_y</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="kd">local</span> <span class="n">result</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">total_cost</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">astar.solve</span><span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">)</span>
+
+<span class="kr">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.SOLVED</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;SOLVED&#34;</span><span class="p">)</span>
+	<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="n">ipairs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="kr">do</span>
+		<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Tile: &#34;</span><span class="p">,</span> <span class="n">v.x</span> <span class="o">..</span> <span class="s2">&#34;-&#34;</span> <span class="o">..</span> <span class="n">v.y</span><span class="p">)</span>
+	<span class="kr">end</span>
+<span class="kr">elseif</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.NO_SOLUTION</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;NO_SOLUTION&#34;</span><span class="p">)</span>
+<span class="kr">elseif</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.START_END_SAME</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;START_END_SAME&#34;</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h3 id="astarsolve_nearstart_x-start_y-max_cost">astar.solve_near(<code>start_x</code>, <code>start_y</code>, <code>max_cost</code>)</h3>
+<p>Finds the neighbours according to given cost.<br>
+Returns multiple values:</p>
+<h5 id="near_result"><code>near_result</code></h5>
+<p><strong>astar.SOLVED</strong>: Path solved<br>
+<strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br>
+<strong>astar.START_END_SAME</strong>: Start and End is the same</p>
+<h5 id="near_size"><code>near_size</code></h5>
+<p>Size of the found neighbours.</p>
+<h5 id="nears"><code>nears</code></h5>
+<p>Table with x and y coordinates. First value is the given start point.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">local</span> <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">local</span> <span class="n">max_cost</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="c1">-- near</span>
+
+<span class="kd">local</span> <span class="n">near_result</span><span class="p">,</span> <span class="n">near_size</span><span class="p">,</span> <span class="n">nears</span> <span class="o">=</span> <span class="n">astar.solve_near</span><span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">max_cost</span><span class="p">)</span>
+
+<span class="kr">if</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.SOLVED</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;SOLVED&#34;</span><span class="p">)</span>
+	<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="n">ipairs</span><span class="p">(</span><span class="n">nears</span><span class="p">)</span> <span class="kr">do</span>
+		<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Tile: &#34;</span><span class="p">,</span> <span class="n">v.x</span> <span class="o">..</span> <span class="s2">&#34;-&#34;</span> <span class="o">..</span> <span class="n">v.y</span><span class="p">)</span>
+	<span class="kr">end</span>
+<span class="kr">elseif</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.NO_SOLUTION</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;NO_SOLUTION&#34;</span><span class="p">)</span>
+<span class="kr">elseif</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.START_END_SAME</span> <span class="kr">then</span>
+	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;START_END_SAME&#34;</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h3 id="astarreset_cache">astar.reset_cache()</h3>
+<p>If your state space is huge, occasionally call astar.reset_cache() to free unused memory.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Human Trials - UDGJ#2</title>
+			<link>https://selimanac.github.io/posts/human-trials-udgj-2/</link>
+			<pubDate>Wed, 10 Jul 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/human-trials-udgj-2/</guid>
+			<description>It was long time ago. Nobody remembers when and what was happened.
+Now, humankind is nothing more than a test subject for an AI. You should find your way out by manipulating AI&amp;rsquo;s source code bit by bit.
+Don&amp;rsquo;t forget; You have to die over and over!
+ I build this game for Unofficial Defold Game Jam#2. You can play on itch.io
+Human Trials by selimanac    Credits &amp;amp; Dependencies</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/human_header.png"
+         alt="Human Trials"/> 
+</figure>
+
+<p>It was long time ago. Nobody remembers when and what was happened.</p>
+<p>Now, humankind is nothing more than a test subject for an AI. You should find your way out by manipulating AI&rsquo;s source code bit by bit.</p>
+<p>Don&rsquo;t forget; You have to die over and over!</p>
+<hr>
+<p>I build this game for <a href="https://itch.io/jam/unofficial-defold-game-jam-2">Unofficial Defold Game Jam#2</a>. You can play on <a href="https://selimanac.itch.io/human-trials">itch.io</a></p>
+<iframe src="https://itch.io/embed/444811?border_width=5" width="560" height="175" frameborder="0"><a href="https://selimanac.itch.io/human-trials">Human Trials by selimanac</a></iframe>
+<hr>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/58CV2rZo_jQ" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p><strong>Credits &amp; Dependencies</strong></p>
+<ul>
+<li>Defold <a href="https://github.com/britzl/defold-orthographic">Orthographic Camera</a> by <a href="https://twitter.com/bjornritzl">Björn Ritzl</a></li>
+<li>Defold <a href="https://github.com/selimanac/defold-modplayer">Mod Player</a></li>
+<li>Mod Music <a href="https://modarchive.org/index.php?request=view_by_moduleid&amp;query=35387">Catch 22</a> by Distance &amp; <a href="https://twitter.com/esaruoho">Lackluster</a></li>
+<li>Various SFX from <a href="https://freesound.org/">freesound.org</a></li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>MOD Player for Defold Engine</title>
+			<link>https://selimanac.github.io/posts/mod-player-for-defold-engine/</link>
+			<pubDate>Mon, 08 Jul 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/mod-player-for-defold-engine/</guid>
+			<description>Mod Player can load and play good old .XM and .MOD file formats.
+As a dinosaur developer, I miss my C64 and Amiga days. When developing this simple extension I remembered those days a lot.
+There are some hitch-ups, but extension supports MacOS, Windows, Linux, Android, iOS and HTML5. Unfortunately, HTML5 bundle is little tricky . There is a little py script which simplify things for now. Please read the details on Github page.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/modplayer-2000x666.png"
+         alt="MOD Player"/> 
+</figure>
+
+<p><a href="https://www.defold.com/community/projects/147260/">Mod Player</a> can load and play good old <a href="https://en.wikipedia.org/wiki/XM_(file_format)">.XM</a> and <a href="https://en.wikipedia.org/wiki/MOD_(file_format)">.MOD</a> file formats.</p>
+<p>As a dinosaur developer, I miss my C64 and Amiga days. When developing this simple extension I remembered those days a lot.</p>
+<p>There are some hitch-ups, but extension supports MacOS, Windows, Linux, Android, iOS and HTML5. Unfortunately, <a href="https://github.com/selimanac/defold-modplayer#html5-bundle">HTML5 bundle</a> is little <a href="https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten-4194/55056">tricky</a> . There is a little <a href="https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py">py script</a> which simplify things for now. Please read the details on <a href="https://github.com/selimanac/defold-modplayer">Github</a> page.</p>
+<p><strong><a href="https://www.defold.com/community/projects/147260/">Defold Asset Portal</a></strong><br>
+<strong><a href="https://github.com/selimanac/defold-modplayer">Github</a></strong><br>
+<strong><a href="https://github.com/selimanac/defold-modplayer-examples">Simple Examples</a></strong><br>
+<strong><a href="https://github.com/selimanac/nanowar-modplayer">Nanowar Example</a></strong> (All credits goes to <a href="https://twitter.com/benjames171">@benjames171</a> )</p>
+<p><a href="http://selimanac.space/wp-content/uploads/2019/07/3ca9e8f2-84ad-4dc9-910a-916fe4b8d35b.png"><img src="/img/posts/modplayer-demo.png" alt=""></a></p>
+<h2 id="installation">Installation</h2>
+<p>Installation requires a few steps.</p>
+<h4 id="1--add-dependency">1- Add Dependency</h4>
+<p>You can use the ModPlayer extension in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>.<br>
+Open your game.project file and in the dependencies field under project add:</p>
+<blockquote>
+<p><a href="https://github.com/selimanac/defold-modplayer/archive/master.zip">https://github.com/selimanac/defold-modplayer/archive/master.zip</a></p>
+</blockquote>
+<h4 id="2--bundle-resources-path">2- Bundle Resources Path</h4>
+<p>Open your game.project file and in the <a href="https://www.defold.com/manuals/project-settings/">Bundle Resources</a> field under project add:</p>
+<blockquote>
+<p>/res</p>
+</blockquote>
+<p><img src="https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/bundle.png?raw=true" alt="Bundle"></p>
+<h4 id="3--create-folders">3- Create Folders</h4>
+<p>Create <code>/res/common/assets</code> folders in your project root. Then you can place your .xm and .mod files here. You can add subfolders as you like; <code>/res/common/assets/musics</code></p>
+<p><img src="https://github.com/selimanac/defold-modplayer/blob/master/assets/screenshots/folders.png?raw=true" alt="Bundle"></p>
+<h2 id="notes--known-issues">Notes &amp; Known Issues</h2>
+<ul>
+<li>Loading and parsing is blocker. It will block the main thread (UI thread). Since the mod files are small it is better to load them when bootstraping or preloading. It may cause a pause on UI.</li>
+<li>Loading and parsing XM files much more faster then mod files. Use XM if possible. (Tested with same tracker file as .mod and .xm)</li>
+<li>Not %100 compatible with every MOD or XM files.</li>
+<li>I couldn&rsquo;t find a way to retrieve build path when developing on Defold Editor. You have to provide a full path to <code>player.build_path(&quot;&lt;FULL_PATH&gt;/res/common/assets/&quot;)</code> function for <strong>working on Defold Editor only</strong>. It doesn&rsquo;t required when bundling.</li>
+<li>Different platform bundles didn&rsquo;t tested very well.
+<ul>
+<li>MacOS: Long run.</li>
+<li>iOS: Long run.</li>
+<li>Windows: Short run. Tested on <a href="https://www.winehq.org/">Wine</a></li>
+<li>Android: Short run.</li>
+<li>Linux: I couldn&rsquo;t manage to have sound on my VMs. But app is successfully load the files and run on Debian and Ubuntu</li>
+</ul>
+</li>
+<li>Hashtable is limited to 10 elements. I think it is more than enough. It is a bad practice to load or play more than two music files at the same time.</li>
+<li>Currently, it is not possible to Build HTML5 on the Defold Editor with mod music. You can build it for testing, but can&rsquo;t load the the musics.</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>See the <a href="https://github.com/selimanac/defold-modplayer/tree/master/example">example folder</a> for simple usage.<br>
+For more examples: <a href="https://github.com/selimanac/defold-modplayer-examples">https://github.com/selimanac/defold-modplayer-examples</a><br>
+Nanowar game example: <a href="https://github.com/selimanac/nanowar-modplayer">https://github.com/selimanac/nanowar-modplayer</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.master_volume</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1">-- Set master volume for musics ( 0.0 -&gt; 1.0 is max level)</span>
+<span class="kd">local</span> <span class="n">music</span> <span class="o">=</span> <span class="n">player.load_music</span><span class="p">(</span><span class="s2">&#34;bb.xm&#34;</span><span class="p">)</span> <span class="c1">-- Load mod file and assign it is ID</span>
+<span class="n">player.play_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span> <span class="c1">-- Play mod file</span>
+<span class="n">player.music_volume</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c1">-- Set volume for music ( 0.0 -&gt; 1.0 is max level)</span>
+<span class="n">player.music_pitch</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="c1">-- Set pitch for a music (1.0 is base level)</span>
+<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Music length: &#34;</span><span class="p">,</span> <span class="n">player.music_lenght</span><span class="p">(</span><span class="n">music</span><span class="p">))</span> <span class="c1">-- Get music time length (in seconds)</span>
+
+</code></pre></div><h2 id="html5-bundle">HTML5 Bundle</h2>
+<p>Unfortunately, it is not possible to build HTML5 on the Defold Editor with mod music(You can build it for testing, but can&rsquo;t load the musics). But you can bundle as HTML5 from the Editor with mod music.</p>
+<p>Bundling for HTML5 is require of editing <code>archive_files.json</code> file. <a href="https://forum.defold.com/t/reading-files-from-res-common-folder-with-emscripten/55056">More info about the issue is here.</a>.<br>
+You can use a script or you can edit it manually.</p>
+<h3 id="--python-script">- Python Script</h3>
+<p>I wrote a small <a href="https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py">python script</a> for updating <code>archive_files.json</code>file with music files data. You can find it here: <a href="https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py">https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py</a></p>
+<ul>
+<li>Put <a href="https://github.com/selimanac/modplayer-html5-example/blob/master/mod_file_parser.py">this</a> file alongside the index.html in the root of your HTML5 Bundle</li>
+<li>Run it with /assets/ path<br>
+<code>&gt; python mod_file_parser.py /assets/audio</code></li>
+<li>It will update the /archive/archive_files.json file with music data</li>
+</ul>
+<h3 id="--manual">- Manual</h3>
+<ul>
+<li>Bundle you project as usual by using <code>Project &gt; Bundle &gt; HTML5</code> from the Defold Editor</li>
+<li>Open <code>archive/archive_files.json</code> file from bundled folder</li>
+<li>Add your music files into <code>archive_files.json</code> file with their names and sizes.</li>
+</ul>
+<pre><code>{
+    &quot;name&quot;: &quot;level_1.xm&quot;, 	&lt;- Name of your file for loading from Defold
+    &quot;size&quot;: 42940,			&lt;- Actual size of the file (bytes) 
+    &quot;pieces&quot;: [
+        {
+            &quot;name&quot;: &quot;../assets/audio/level_1.xm&quot;, &lt;- Relative path to your mod files
+            &quot;offset&quot;: 0
+        }
+    ]
+}
+</code></pre><p>Example HTML5 project is <a href="https://github.com/selimanac/modplayer-html5-example">here</a> and example archive_files.json is <a href="https://github.com/selimanac/modplayer-html5-example/blob/master/archive/archive_files.json">here</a>.</p>
+<h2 id="api">API</h2>
+<h4 id="playerbuild_pathfull_pathstring">player.build_path(full_path:string)</h4>
+<p><strong>!- Don&rsquo;t set this when bundling -!</strong></p>
+<p>Only required when developing on Defold Editor. <code>&lt;FULL_PATH&gt;</code> (<a href="https://en.wikipedia.org/wiki/Path_(computing)">absolute path</a>) is the full path of your project folder/directory.<br>
+Don&rsquo;t forget to add <strong>trailing <code>/</code></strong>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.build_path</span><span class="p">(</span><span class="s2">&#34;&lt;FULL_PATH&gt;/res/common/assets/&#34;</span><span class="p">)</span> <span class="c1">-- Set build path when working on Editor only </span>
+
+</code></pre></div><h5 id="examples">Examples</h5>
+<p>Windows:<br>
+<code>player.build_path(&quot;C:/Users/user_name/your_project_path/res/common/assets/&quot;)</code></p>
+<p>*nix:<br>
+<code>player.build_path(&quot;/Users/user_name/your_project_path/res/common/assets/&quot;)</code></p>
+<p>We don&rsquo;t need it when bundling:</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="kd">local</span> <span class="n">is_development</span> <span class="o">=</span> <span class="kc">false</span> <span class="c1">-- If you are building on Defold Editor then set it true. If you are bundling set it false</span>
+<span class="kr">if</span> <span class="n">is_development</span> <span class="kr">then</span>
+	<span class="n">player.build_path</span><span class="p">(</span><span class="s2">&#34;&lt;FULL_PATH&gt;/res/common/assets/&#34;</span><span class="p">)</span> <span class="c1">-- Set build path only for Defold Editor</span>
+<span class="kr">end</span>
+
+</code></pre></div><h4 id="playermaster_volumevolumedouble">player.master_volume(volume:double)</h4>
+<p>Set master volume for musics ( 0.0 -&gt; 1.0 is max level)</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.master_volume</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
+</code></pre></div><h4 id="playerload_musicfile_namestring">player.load_music(file_name:string)</h4>
+<p>Load and parse mod file into memory.
+Returns ID.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="kd">local</span> <span class="n">music</span> <span class="o">=</span> <span class="n">player.load_music</span><span class="p">(</span><span class="s2">&#34;your_file_name.xm&#34;</span><span class="p">)</span> <span class="c1">-- Load mod file and assign it is ID[int] </span>
+
+</code></pre></div><h4 id="playerplay_musicidint">player.play_music(id:int)</h4>
+<p>Start music playing.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.play_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span> 
+
+</code></pre></div><h4 id="playerpause_musicidint">player.pause_music(id:int)</h4>
+<p>Pause music playing.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.pause_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span> 
+
+</code></pre></div><h4 id="playerresume_musicidint">player.resume_music(id:int)</h4>
+<p>Resume playing &ldquo;paused&rdquo; music</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.resume_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span>
+
+</code></pre></div><h4 id="playermusic_volumeidint-volumedouble">player.music_volume(id:int, volume:double)</h4>
+<p>Set volume for music ( 0.0 -&gt; 1.0 is max level)</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.music_volume</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+</code></pre></div><h4 id="playermusic_pitchidint-pitchdouble">player.music_pitch(id:int, pitch:double)</h4>
+<p>Set pitch for a music (1.0 is base level).</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.music_pitch</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> 
+
+</code></pre></div><h4 id="playermusic_lenghtidint">player.music_lenght(id:int)</h4>
+<p>Get music time length (in seconds)</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Music length: &#34;</span><span class="p">,</span> <span class="n">player.music_lenght</span><span class="p">(</span><span class="n">music</span><span class="p">))</span>
+
+</code></pre></div><h4 id="playermusic_playedidint">player.music_played(id:int)</h4>
+<p>Get current music time played (in seconds)</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Played : &#34;</span><span class="p">,</span> <span class="n">player.music_played</span><span class="p">(</span><span class="n">music</span><span class="p">))</span>
+
+</code></pre></div><h4 id="playermusic_looploopint">player.music_loop(loop:int)</h4>
+<p>Set music loop count (loop repeats) NOTE: If set to -1, means infinite loop. Default is -1 (infinite)</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.music_loop</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+</code></pre></div><h4 id="playeris_music_playingidint">player.is_music_playing(id:int)</h4>
+<p>Check if music is playing. Also returns <code>false</code> if music is not loaded or unloaded.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">print</span><span class="p">(</span><span class="s2">&#34;is Playing:&#34;</span><span class="p">,</span> <span class="n">player.is_music_playing</span><span class="p">(</span><span class="n">music</span><span class="p">))</span> 
+
+</code></pre></div><h4 id="playerstop_musicidint">player.stop_music(id:int)</h4>
+<p>Stop music playing</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.stop_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span> 
+
+</code></pre></div><h4 id="playerunload_musicidint">player.unload_music(id:int)</h4>
+<p>Unload music from memory</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.unload_music</span><span class="p">(</span><span class="n">music</span><span class="p">)</span>
+
+</code></pre></div><h4 id="playerxm_volumeidint-volumedouble-amplificationdouble">player.xm_volume(id:int, volume:double, amplification:double)</h4>
+<p>Only for XM files. You can change the samples volume, but it may cause a clipping. You can balance it with amplification. Some bad modules may still clip. Default values; volume 1.0, amplification 0.25.
+Use it with caution!</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="n">player.xm_volume</span><span class="p">(</span><span class="n">music</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+
+</code></pre></div><h2 id="dependencies">Dependencies</h2>
+<ul>
+<li><a href="https://github.com/dr-soft/miniaudio">miniaudio</a> (slightly modified version)</li>
+<li><a href="https://github.com/raysan5/raylib/blob/master/src/raudio.c">raudio</a> (heavily modified version)</li>
+<li><a href="https://github.com/kd7tck/jar/blob/master/jar_mod.h">jar_mod</a> (slightly modified version)</li>
+<li><a href="https://github.com/kd7tck/jar/blob/master/jar_xm.h">jar_xm</a> (slightly modified version)</li>
+<li><a href="https://github.com/JCash/containers/blob/master/src/jc/hashtable.h">hashtable</a></li>
+</ul>
+<p><strong>Thanks to all Defold team for their great support.</strong></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>PCG Random Number Generator for Defold</title>
+			<link>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</link>
+			<pubDate>Tue, 09 Apr 2019 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</guid>
+			<description>Defold - PCG Random PCG Random Number Generator Native Extension for the Defold Game Engine
+This extension allow you to generate random numbers using minimal C implementation of PCG.
+It uses entropy seed internally with fallback to time based seed. You can switch to Time based seed and remove the entropy by uncommenting/commenting a few lines on the source code, but I don&amp;rsquo;t think it is necessary.
+Installation You can use PCG Random in your own project by adding this project as a Defold library dependency.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/pcg-header-2000x666.png"
+         alt="Defold API"/> 
+</figure>
+
+<h1 id="defold---pcg-random">Defold - PCG Random</h1>
+<p>PCG Random Number Generator Native Extension for the Defold Game Engine</p>
+<p>This extension allow you to generate random numbers using minimal <a href="http://www.pcg-random.org/using-pcg-c-basic.html">C implementation of PCG</a>.</p>
+<p>It uses <a href="https://github.com/imneme/pcg-c/blob/master/extras/entropy.c">entropy</a> seed internally with fallback to time based seed. You can switch to Time based seed and remove the entropy by uncommenting/commenting a few lines on the source code, but I don&rsquo;t think it is necessary.</p>
+<h2 id="installation">Installation</h2>
+<p>You can use PCG Random in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>. Open your game.project file and in the dependencies field under project add:</p>
+<pre><code>https://github.com/selimanac/defold-random/archive/master.zip
+</code></pre>
+<hr>
+<h2 id="usage">Usage</h2>
+<h3 id="rndseedinit_state-init_seq">rnd.seed(<code>init_state</code>, <code>init_seq</code>)</h3>
+<p>Seeds the random number generator.<br>
+Random number generator is always initialized by using entropy seed. You don&rsquo;t need to call this method unless you want to control the seed.</p>
+<p><code>init_state</code> is the starting state for the RNG, you can pass any 64-bit value.<br>
+<code>init_seq</code> selects the output sequence for the RNG, you can pass any 64-bit value, although only the low 63 bits are significant.</p>
+<p><strong>Caution:</strong> I don&rsquo;t recommend using of 64-bit integers. Consider using 32-bit integers instead.</p>
+<h3 id="rndseed">rnd.seed()</h3>
+<p>Re-seed the random number generator by using entropy seed.<br>
+Random number generator is always initialized by using entropy seed. You don’t need to call this method unless you want to re-seed.</p>
+<h3 id="rndnumber">rnd.number()</h3>
+<p>Returns a 32 bit unsigned integer.</p>
+<h3 id="rndrangemin-max">rnd.range(<code>min</code>, <code>max</code>)</h3>
+<p>Returns a 32 bit unsigned integer between min and max values. Only for positive numbers(unsigned integers).<br>
+Same as <strong>math.random(3,20)</strong><br>
+<strong>math.random(90)</strong> == rnd.range(1, 90)</p>
+<h3 id="rnddouble">rnd.double()</h3>
+<p>Returns a floating point between 0-1.<br>
+Same as <strong>math.random()</strong></p>
+<h3 id="rndtoss">rnd.toss()</h3>
+<p>Toss a coin. Returns 0 or 1 (0 = &lsquo;H&rsquo;, 1 = &lsquo;T&rsquo;)</p>
+<h3 id="rndroll">rnd.roll()</h3>
+<p>Roll the dice. Returns between 1-6</p>
+<h3 id="rndcheck">rnd.check()</h3>
+<p>Testing entropy.</p>
+<h2 id="release-notes">Release Notes</h2>
+<p>1.2.1</p>
+<ul>
+<li>Added static seed</li>
+<li>Small fix.</li>
+</ul>
+<p>1.1</p>
+<ul>
+<li>Fixed integers.</li>
+</ul>
+<p>1.0</p>
+<p>Initial release.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Defold API Snippets for Visual Studio Code</title>
+			<link>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</link>
+			<pubDate>Wed, 26 Sep 2018 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</guid>
+			<description>Defold API Snippets for Visual Studio Code Full api snippets for Defold Engine is available on marketplace.
+All Lua and C++ methods, messages, properties and brief descriptions are included.
+Marketplace
+Github
+ Ordered Tabstops Message Generation play_sound -&amp;gt; msg.post(receiver, &amp;quot;play_sound&amp;quot;, {[delay], [gain]})
+model_animation_done -&amp;gt; msg.post(receiver, &amp;quot;model_animation_done&amp;quot;, {animation_id, playback})
+Properties with quotation marks &amp;quot;scale&amp;quot;
+Release Notes 1.2.2  API version 1.2.169 Python script is updated. It is now download, unpack and parse the docs.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/vscode-api-2000x666.png"
+         alt="Defold API"/> 
+</figure>
+
+<h1 id="defold-api-snippets-for-visual-studio-code">Defold API Snippets for Visual Studio Code</h1>
+<p>Full api snippets for <a href="https://www.defold.com/">Defold Engine</a> is available on <a href="https://marketplace.visualstudio.com/items?itemName=selimanac.defold-vsc-snippets">marketplace</a>.<br>
+All Lua and C++ methods, messages,  properties and brief descriptions are included.</p>
+<p><strong><a href="https://marketplace.visualstudio.com/items?itemName=selimanac.defold-vsc-snippets">Marketplace</a></strong><br>
+<strong><a href="https://github.com/selimanac/defold-vsc-snippets">Github</a></strong></p>
+<hr>
+<p><img src="https://github.com/selimanac/defold-vsc-snippets/raw/master/images/vcs.png" alt="vcs"></p>
+<h3 id="ordered-tabstops">Ordered Tabstops</h3>
+<p><img src="https://github.com/selimanac/defold-vsc-snippets/raw/master/images/orderedtabstops.gif" alt="Ordered Tabstops"></p>
+<h3 id="message-generation">Message Generation</h3>
+<p><code>play_sound</code> -&gt;  <code>msg.post(receiver, &quot;play_sound&quot;, {[delay], [gain]})</code></p>
+<p><code>model_animation_done</code> -&gt; <code>msg.post(receiver, &quot;model_animation_done&quot;, {animation_id, playback})</code></p>
+<p><img src="https://github.com/selimanac/defold-vsc-snippets/raw/master/images/input_focus.gif" alt="focus"></p>
+<p><img src="https://github.com/selimanac/defold-vsc-snippets/raw/master/images/clear_color.gif" alt="focus"></p>
+<h3 id="properties-with-quotation-marks">Properties with quotation marks</h3>
+<p><code>&quot;scale&quot;</code></p>
+<h2 id="release-notes">Release Notes</h2>
+<h3 id="122">1.2.2</h3>
+<ul>
+<li>API version 1.2.169</li>
+<li>Python script is updated. It is now download, unpack and parse the docs. Python script requires Python version 2.7. It may fail with Python version 3.x</li>
+</ul>
+<h3 id="121">1.2.1</h3>
+<ul>
+<li>API version 1.2.163</li>
+</ul>
+<h3 id="120">1.2.0</h3>
+<p>LUA and C++ (Defold SDK) APIs are separated. You can use Defold SDK snippets with C++ now.</p>
+<h3 id="117">1.1.7</h3>
+<ul>
+<li>API version 1.2.156</li>
+</ul>
+<h3 id="116">1.1.6</h3>
+<ul>
+<li>API version 1.2.149</li>
+</ul>
+<h3 id="115">1.1.5</h3>
+<ul>
+<li>API version 1.2.147</li>
+</ul>
+<h3 id="114">1.1.4</h3>
+<ul>
+<li>API version 1.2.138</li>
+<li>Missing functions, methods and properties are added properly.</li>
+<li>Properties added to the body.</li>
+</ul>
+<p>(Sorry for the version numbering, vsce publish minor cause this )</p>
+<h3 id="102">1.0.2</h3>
+<ul>
+<li>Missing functions, methods and properties are added.</li>
+<li>Args added to the list.</li>
+</ul>
+<h3 id="100">1.0.0</h3>
+<ul>
+<li>Initial release based on API version 1.2.137.</li>
+</ul>
+<h2 id="recommended-settings--extension">Recommended Settings &amp; Extension</h2>
+<h3 id="add-script-files-to-your-settings">Add .script files to your settings</h3>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;files.associations&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;*.script&#34;</span><span class="p">:</span> <span class="s2">&#34;lua&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;*.gui_script&#34;</span><span class="p">:</span> <span class="s2">&#34;lua&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;*.render_script&#34;</span><span class="p">:</span> <span class="s2">&#34;lua&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;*.editor_script&#34;</span><span class="p">:</span> <span class="s2">&#34;lua&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="useful-extensions">Useful Extensions</h3>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua">EmmyLua</a> (Suggested)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=keyring.Lua">Lua language support for Visual Studio Code</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=dcr30.lualinter">Lint Lua scripts with luac or luajit</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=jep-a.lua-plus">Improved Lua syntax highlighting</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=xxxg0001.lua-for-vscode">Support go to defintion and List Document Symbols.</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=trixnz.vscode-lua">Intellisense and Linting for Lua</a></li>
+</ul>
+<h2 id="json-parser">Json Parser</h2>
+<p>I build this snippets by using a simple Python script. It parses all json files from api docs and converts them to single snippet file. It is available in the <code>src</code> folder of <a href="https://github.com/selimanac/defold-vsc-snippets">Github repo</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>My Assemblage Works</title>
+			<link>https://selimanac.github.io/posts/my-assemblage-works/</link>
+			<pubDate>Wed, 04 Apr 2018 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/my-assemblage-works/</guid>
+			<description>Using various junk materials.
+                                                                                                                                    </description>
+			<content type="html"><![CDATA[<p><img src="/img/assemblage/Cometome.jpg" alt="img"></p>
+<p>Using various junk materials.</p>
+<p>
+
+  
+
+<script src="/js/load-photoswipe.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha256-rlldBDOCxqXAE1fRopHG2SqpgWisq17/3Oleo+1CBKo=" crossorigin="anonymous" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha256-kQW7k22C0skJMSPxgEI2VHR0LPHeygi8SRYNvV/DB2w=" crossorigin="anonymous" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha256-iG1tiE5xJSJQhKdeOW4cPiSy+RTrnRKjjjrVQ0hexug=" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha256-XvSk6Opq7XZ8oUcx213MtikXtbl5bbe4Q9tr4+NJBCg=" crossorigin="anonymous"></script>
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<div class="gallery caption-position-bottom caption-effect-slide hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+      
+ <link rel="stylesheet" href="/css/hugo-easy-gallery.min.css" />
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4654.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4654.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4654.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4619.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4619.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4619.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0110-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0110-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0110-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0026.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0026.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0026.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4728.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4728.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4728.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4762.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4762.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4762.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_5401.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_5401.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_5401.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0106-as-Smart-Object-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0106-as-Smart-Object-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0106-as-Smart-Object-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0073-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0073-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0073-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_5168.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_5168.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_5168.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0009.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0009.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0009.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_6934.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_6934.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_6934.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_6782.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_6782.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_6782.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_6737.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_6737.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_6737.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_6618.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_6618.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_6618.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0021-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0021-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0021-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4356-2.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4356-2.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4356-2.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+    
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/IMG_4309.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/IMG_4309.jpg" />
+    </div>
+    <a   href="/img/assemblage/IMG_4309.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0184-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0184-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0184-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0174-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0174-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0174-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0137.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0137.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0137.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0121-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0121-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0121-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0060-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0060-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0060-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0023-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0023-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0023-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+     
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="img" style="background-image: url('https://selimanac.github.io//img/assemblage/DSC_0011-1.jpg');">
+      <img itemprop="thumbnail" src="/img/assemblage/DSC_0011-1.jpg" />
+    </div>
+    <a   href="/img/assemblage/DSC_0011-1.jpg"  itemprop="contentUrl" ></a>
+  </figure>
+</div>
+
+ 
+
+</div>
+</p>
+<p><img src="/img/assemblage/starwars3.jpg" alt="img"></p>
+<p><img src="/img/assemblage/IMG_9014723.jpg" alt="img"></p>
+<p><img src="/img/assemblage/BluesBrothers.jpg" alt="img"></p>
+<hr>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/n2xvHj0hz_M" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+]]></content>
+		</item>
+		
+		<item>
+			<title>Devlog – No Nation / 1</title>
+			<link>https://selimanac.github.io/posts/no-nation-devlog-1/</link>
+			<pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid>
+			<description>## ABANDONED ##
+I started to learn Defold Engine couple months ago. I love it and I decided to build something with it.
+ No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
+Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description>
+			<content type="html"><![CDATA[<p><em><strong>## ABANDONED ##</strong></em></p>
+<p>I started to learn <a href="https://www.defold.com/">Defold Engine</a> couple months ago. I love it and I decided to build something with it.</p>
+<figure class="big">
+    <img src="/img/posts/nonation-header.png"
+         alt="image"/> 
+</figure>
+
+<p>No Nation is a kind of narrative - adventure - action game without jumping :) I don&rsquo;t want to share the narrative details yet.  Story take place in 1940&rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.</p>
+<h3 id="example-pixel-arts-from-game">Example Pixel Arts From Game</h3>
+<p>This is the initial/prototype drawing just for the entrance the first level. I already made changes on this, it is not the final.</p>
+<figure class="big">
+    <img src="/img/pixel-art/no-nation.png"
+         alt="image"/> 
+</figure>
+
+<figure>
+    <img src="/img/pixel-art/no-nation-ansible.gif"
+         alt="image"/> <figcaption>
+            <p>Ansible The computer</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="/img/pixel-art/no-nation-car-side.png"
+         alt="image"/> <figcaption>
+            <p>Car</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="/img/pixel-art/no-nation-hero.gif"
+         alt="image"/> <figcaption>
+            <p>Hero</p>
+        </figcaption>
+</figure>
+
+<h3 id="test-videos">Test Videos</h3>
+<p>There are lots of missing drawings and animations, but I already complete the main character movements, gun aiming and swapping.</p>
+<p>In this video, I am testing initial tilemaps, OpenAL, some particles, aiming and bullets. This is the early development video.</p>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/Gi77sq1o_dQ" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p>In this video, added the magazine reloading, bullets and gun swapping. Also I change the characters moving animation. Reloading animations are still missing.
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/5ot-jjaWAnc" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+</p>
+<h3 id="development">Development</h3>
+<p>It is possible to extend core engine on Defold with <a href="https://www.defold.com/manuals/extensions/">Native Extensions</a>.  You can  use  C, C++, Objective C, Java or Javascript,  depending on target platform.</p>
+<p>Since there isn&rsquo;t a build-in culling in Defold, I need a way to detect offscreen objects.  I found that best way to do it for large amount of moving objects is using Dynamic AABB Trees. So I decided to build my own native extension for this purpose.  You can find it on <a href="https://github.com/selimanac/DAABBCC">Github</a>.  Basically it is a broad phase collision detection library. But I also added experimental narrow phase collision detection library (<a href="https://github.com/RandyGaul/tinyheaders">tinyc2</a>) to it.</p>
+<p>Right now I&rsquo;m implementing my <a href="https://www.selimanac.com/daabbcc-aabb-tree-experimental-collision-detection-native-extension-for-defold-engine/">DAABBCC</a> library into the game logic. Meanwhile I&rsquo;m also working on character dialogs.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>DAABBCC</title>
+			<link>https://selimanac.github.io/posts/daabbcc/</link>
+			<pubDate>Sat, 17 Mar 2018 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/daabbcc/</guid>
+			<description>This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+Special thanks to Randy Gaul for Branch and Bound implementation.
+HashTable and Array by Mathias Westerdahl
+Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
+What is DAABBCC?
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.</description>
+			<content type="html"><![CDATA[<figure class="big">
+    <img src="/img/posts/daabbcc_header.png"
+         alt="DAABBCC"/> 
+</figure>
+
+<p>This is a <a href="https://box2d.org/files/ErinCatto_DynamicBVH_Full.pdf">Dynamic AABB Tree</a> native extension with Branch and Bound Algorithm for <a href="https://www.defold.com/">Defold Engine</a>. DAABBCC build by using Box2D’s <a href="https://github.com/erincatto/box2d/blob/master/src/collision/b2_dynamic_tree.cpp">Dynamic Tree</a>.</p>
+<p>Special thanks to <a href="https://twitter.com/RandyPGaul">Randy Gaul</a> for <a href="https://github.com/erincatto/Box2D/pull/548">Branch and Bound</a> implementation.<br>
+<a href="https://github.com/JCash/containers">HashTable and Array</a> by <a href="https://github.com/JCash">Mathias Westerdahl</a><br>
+Box2D Copyright (c) 2009 Erin Catto <a href="http://www.box2d.org">http://www.box2d.org</a></p>
+<p><strong>What is DAABBCC?</strong></p>
+<p>A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well. The data structure provides an efficient way of detecting potential overlap between objects. DAABBCC does not contain narrow-phase collision detection.</p>
+<p>You can use it whenever precise collision manifold(narrow-phase) is not required.</p>
+<h2 id="installation">Installation</h2>
+<p>You can use the DAABBCC in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>.<br>
+Open your game.project file and in the dependencies field under project add:</p>
+<blockquote>
+<p><a href="https://github.com/selimanac/DAABBCC/archive/v2.0.zip">https://github.com/selimanac/DAABBCC/archive/v2.0.zip</a></p>
+</blockquote>
+<h2 id="release-notes">Release Notes</h2>
+<p>2.0</p>
+<p>This is a complete rewritten version by using Box2D’s <a href="https://github.com/erincatto/Box2D/blob/master/Box2D/Collision/b2DynamicTree.cpp">Dynamic Tree</a>.</p>
+<ul>
+<li>API revised and simplified</li>
+<li>Nearly 6x performance increment according to v1.x (4800 sprites vs 500 sprites)</li>
+<li>Low cpu usage</li>
+<li>Experimental narrow phase collision detections removed</li>
+</ul>
+<p><a href="https://github.com/selimanac/DAABBCC/releases/tag/v1.1">1.1</a></p>
+<p>Final 1.x release.</p>
+<ul>
+<li>Updated cute_c2 version to 1.05</li>
+</ul>
+<p>1.0</p>
+<p>Initial release.</p>
+<h2 id="api">API</h2>
+<h3 id="aabbnew_group">aabb.new_group()</h3>
+<p>New group for AABBs. Currently groups has limited to 20.</p>
+<blockquote>
+<p>Returns group id.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">enemy_group</span> <span class="o">=</span> <span class="n">aabb.new_group</span><span class="p">()</span>
+</code></pre></div><h3 id="aabbinsertgroup_id-x-y-w-h">aabb.insert(<code>group_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)</h3>
+<p>Insert AABB into the group.</p>
+<blockquote>
+<p>Returns aabb id.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">local</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="kd">local</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="kd">local</span> <span class="n">enemy_id</span> <span class="o">=</span> <span class="n">aabb.insert</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+</code></pre></div><p>You can get position and size from sprite.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">self.pos</span> <span class="o">=</span> <span class="n">go.get_position</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+<span class="n">self.size</span> <span class="o">=</span> <span class="n">go.get</span><span class="p">(</span><span class="s2">&#34;#sprite&#34;</span><span class="p">,</span> <span class="s2">&#34;size&#34;</span><span class="p">)</span>
+
+<span class="n">self.enemy_id</span> <span class="o">=</span> <span class="n">aabb.insert</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.pos</span><span class="p">.</span><span class="n">x</span> <span class="p">,</span> <span class="n">self.pos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">self.size</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self.size</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbupdategroup_id-aabb_id-x-y-w-h">aabb.update(<code>group_id</code>, <code>aabb_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)</h3>
+<p>Updates the AABB position and size when you change it is position or size.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">new_x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="kd">local</span> <span class="n">new_y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="kd">local</span> <span class="n">new_w</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="kd">local</span> <span class="n">new_h</span> <span class="o">=</span> <span class="mi">60</span>
+
+<span class="n">aabb.update</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.enemy_id</span><span class="p">,</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_w</span><span class="p">,</span> <span class="n">new_h</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbquery_idgroup_id-aabb_id">aabb.query_id(<code>group_id</code>, <code>aabb_id</code>)</h3>
+<p>Query the possible overlaps using ID.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.query_id</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.enemy_id</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbquerygroup_id-x-y-w-h">aabb.query(<code>group_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)</h3>
+<p>Query the possible overlaps using AABB.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.query</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbraycastgroup_id-start_x-start_y-end_x-end_y">aabb.raycast(<code>group_id</code>, <code>start_x</code>, <code>start_y</code>, <code>end_x</code>, <code>end_y</code>)</h3>
+<p>Query the possible overlaps using RAYCAST.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">ray_start</span> <span class="o">=</span> <span class="n">vmath.vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">ray_end</span> <span class="o">=</span> <span class="n">vmath.vector3</span><span class="p">(</span><span class="mi">365</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.raycast</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">ray_start.x</span><span class="p">,</span> <span class="n">ray_start.y</span><span class="p">,</span> <span class="n">ray_end.x</span><span class="p">,</span> <span class="n">ray_end.y</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbremove_groupgroup_id">aabb.remove_group(<code>group_id</code>)</h3>
+<p>Removes the group and cleans all AABBs</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">aabb.remove_group</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">)</span>
+</code></pre></div><h2 id="notes">Notes</h2>
+<ul>
+<li>Currently groups has limited to 20. I have a solution for this but I don&rsquo;t want to expose it to API now. If you need more groups, please open an issue. I can expose it to api</li>
+<li>Performance is really depend on CPU load. I manage to get 60fps with 4800 sprite on my desktop. But this doesn&rsquo;t mean that you can use 4800 sprites on mobile platforms. You have to do your own test.</li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>My Pixel Arts</title>
+			<link>https://selimanac.github.io/posts/pixel-art/</link>
+			<pubDate>Sun, 18 Feb 2018 10:44:44 +0300</pubDate>
+			
+			<guid>https://selimanac.github.io/posts/pixel-art/</guid>
+			<description>Examples from my past pixel art tryouts.
+                               Hellboy
+      Hellboy
+      Snowpiercer
+      Snowpiercer
+      Phantom
+      No Nation - Game prototype</description>
+			<content type="html"><![CDATA[<p>Examples from my past pixel art tryouts.</p>
+<p>
+
+  
+
+<script src="/js/load-photoswipe.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha256-rlldBDOCxqXAE1fRopHG2SqpgWisq17/3Oleo+1CBKo=" crossorigin="anonymous" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha256-kQW7k22C0skJMSPxgEI2VHR0LPHeygi8SRYNvV/DB2w=" crossorigin="anonymous" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha256-iG1tiE5xJSJQhKdeOW4cPiSy+RTrnRKjjjrVQ0hexug=" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha256-XvSk6Opq7XZ8oUcx213MtikXtbl5bbe4Q9tr4+NJBCg=" crossorigin="anonymous"></script>
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<div class="gallery caption-position-bottom caption-effect-slide hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+      
+  <link rel="stylesheet" href="/css/hugo-easy-gallery.min.css" />
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/hellboy.gif');">
+      <img itemprop="thumbnail" src="/img/pixel-art/hellboy.gif" alt="Hellboy"/>
+    </div>
+    <a   href="/img/pixel-art/hellboy.gif"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>Hellboy</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/hellboy_scene.png');">
+      <img itemprop="thumbnail" src="/img/pixel-art/hellboy_scene.png" alt="Hellboy"/>
+    </div>
+    <a   href="/img/pixel-art/hellboy_scene.png"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>Hellboy</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/snowpiercer.gif');">
+      <img itemprop="thumbnail" src="/img/pixel-art/snowpiercer.gif" alt="Snowpiercer"/>
+    </div>
+    <a   href="/img/pixel-art/snowpiercer.gif"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>Snowpiercer</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/snowpiercer-large.png');">
+      <img itemprop="thumbnail" src="/img/pixel-art/snowpiercer-large.png" alt="Snowpiercer"/>
+    </div>
+    <a   href="/img/pixel-art/snowpiercer-large.png"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>Snowpiercer</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/phantom-web.png');">
+      <img itemprop="thumbnail" src="/img/pixel-art/phantom-web.png" alt="Phantom"/>
+    </div>
+    <a   href="/img/pixel-art/phantom-web.png"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>Phantom</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/no-nation.png');">
+      <img itemprop="thumbnail" src="/img/pixel-art/no-nation.png" alt="No Nation - Game prototype"/>
+    </div>
+    <a   href="/img/pixel-art/no-nation.png"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>No Nation - Game prototype</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/no-nation-hero.gif');">
+      <img itemprop="thumbnail" src="/img/pixel-art/no-nation-hero.gif" alt="No Nation - Game prototype"/>
+    </div>
+    <a   href="/img/pixel-art/no-nation-hero.gif"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>No Nation - Game prototype</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/no-nation-car-side.png');">
+      <img itemprop="thumbnail" src="/img/pixel-art/no-nation-car-side.png" alt="No Nation - Game prototype"/>
+    </div>
+    <a   href="/img/pixel-art/no-nation-car-side.png"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>No Nation - Game prototype</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+  
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div id="fuck1" class="imgpixel" style="background-image: url('https://selimanac.github.io//img/pixel-art/no-nation-ansible.gif');">
+      <img itemprop="thumbnail" src="/img/pixel-art/no-nation-ansible.gif" alt="No Nation - Game prototype"/>
+    </div>
+    <a   href="/img/pixel-art/no-nation-ansible.gif"  itemprop="contentUrl" ></a>
+      <figcaption>
+          <p>No Nation - Game prototype</p>
+      </figcaption>
+  </figure>
+</div>
+
+ 
+
+</div>
+</p>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>

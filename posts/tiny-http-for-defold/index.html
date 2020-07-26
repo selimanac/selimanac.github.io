@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Tiny Http – Server and Client for Defold">
+<meta itemprop="description" content="Tiny Http - Defold Native Extension is a simple http server and client.
+Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding.">
+<meta itemprop="datePublished" content="2019-10-29T10:44:44&#43;03:00" />
+<meta itemprop="dateModified" content="2020-07-26T10:44:44&#43;03:00" />
+<meta itemprop="wordCount" content="706">
+
+
+
+<meta itemprop="keywords" content="defold,game development," /><meta property="og:title" content="Tiny Http – Server and Client for Defold" />
+<meta property="og:description" content="Tiny Http - Defold Native Extension is a simple http server and client.
+Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://selimanac.github.io/posts/tiny-http-for-defold/" />
+<meta property="article:published_time" content="2019-10-29T10:44:44+03:00" />
+<meta property="article:modified_time" content="2020-07-26T10:44:44+03:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tiny Http – Server and Client for Defold"/>
+<meta name="twitter:description" content="Tiny Http - Defold Native Extension is a simple http server and client.
+Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Tiny Http – Server and Client for Defold</title>
+	<link rel="stylesheet" href="https://selimanac.github.io/css/style.min.eac77496566fd7d5768fd650ddb0b2b181ca6a2d7c5fdd6fe6b8ba4bf47e566f.css" integrity="sha256-6sd0llZv19V2j9ZQ3bCysYHKai18X91v5ri6S/R+Vm8=" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://selimanac.github.io/css/sa.css">
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://selimanac.github.io/">
+                        <svg class="logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.01 86.7"><path d="M49.67,2.58A42.51,42.51,0,0,0,7.16,45.09V89.28h85V45.09A42.5,42.5,0,0,0,49.67,2.58ZM66.26,71.94a4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0V70.66H66.26ZM50.33,59.21A15.94,15.94,0,1,1,66.27,43.27,15.94,15.94,0,0,1,50.33,59.21Z" transform="translate(-7.16 -2.58)" fill="currentColor" /></svg>
+                    </a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://selimanac.github.io/posts/">Posts</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/selimanac" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/selimanac" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/selimanac" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated faster">
+		<ul>
+			<li><a href="https://selimanac.github.io/posts/">Posts</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Oct 29, 2019</span><br><span class="post-mod"> Jul 26, 2020</span></div>
+				<h1>Tiny Http – Server and Client for Defold</h1>
+			</header>
+			<div class="content">
+				<figure class="big">
+    <img src="/img/posts/tiny_http_dark.png"
+         alt="Human Trials"/> 
+</figure>
+
+<p><a href="https://github.com/selimanac/defold-tiny-http">Tiny Http</a> - Defold Native Extension is a simple http server and client.</p>
+<p>Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&rsquo;t need it, SSL not supported. But it is <a href="https://github.com/yhirose/cpp-httplib#openssl-support">possible</a> to add this feature, feel free to PR if you want to.</p>
+<p>All requests and responses are JSON. You may consider of using <a href="https://github.com/Melsoft-Games/defold-cjson">CJSON</a> for encoding and decoding.</p>
+<p>All server responses for GET requests are static echo. POST responses are limited but customizable by using <a href="#dhttpserver_post_contentjson"><code>dhttp.server_post_content</code></a>.</p>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/Joxp3cJadxI" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p>Server runs on separate thread, it is not a blocker. Client has a thread pool. But timeouts may block the UI for 5 sec. Server <a href="https://github.com/selimanac/defold-tiny-http#endpoints">endpoints</a> are definable. You can add your GET/POST <a href="https://github.com/selimanac/defold-tiny-http#endpoints">endpoints</a> by using regex.</p>
+
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/smx5nbnTHQs" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+
+<p>There is a simple Event ID passing from client to server. Event IDs are passed as header. Main purpose of Event ID is to grouping and parsing the triggers on the server-side easily.</p>
+<p>Client is here to simplify things when using Defold. But of course you can use build-in <a href="https://defold.com/ref/http/">http requests</a>. If you want to use build-in <a href="https://defold.com/ref/http/">http requests</a> and Event-IDs, you can simply pass it like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua">
+<span class="kd">local</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="s2">&#34;Event-ID&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span>
+<span class="p">}</span>
+
+<span class="n">http.request</span><span class="p">(</span><span class="s2">&#34;http://127.0.0.1:8800/monster/1&#34;</span><span class="p">,</span> <span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="n">http_result</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+
+</code></pre></div><p> </p>
+<p>Or with Curl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">
+curl --header <span class="se">\\</span><span class="s2">&#34;Event-ID: 1\\&#34;</span> http://localhost:8800/monster/1
+
+</code></pre></div><p> 
+<div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" 
+            width="640" height="385" 
+            src="https://www.youtube.com/embed/5G8O6dzLoVM" 
+            allowfullscreen frameborder="0">
+    </iframe>
+</div>
+
+</p>
+<h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>You can use Tiny Http in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>. Open your game.project file and in the dependencies field under project add:</p>
+<pre><code>https://github.com/selimanac/defold-tiny-http/archive/master.zip
+</code></pre>
+<hr>
+<h2 id="examples">Examples<a href="#examples" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Detailed server and client examples can be found in <a href="https://github.com/selimanac/defold-tiny-http/tree/master/examples">examples</a> folder.</p>
+<h3 id="server">Server<a href="#server" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="c1">-- Server settings</span>
+<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+<span class="kd">local</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">8800</span>
+
+<span class="c1">-- Server callbacks</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">server_callbacks</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+	<span class="c1">-- Decode response</span>
+    <span class="kd">local</span> <span class="n">jresult</span> <span class="o">=</span> <span class="n">json.decode</span><span class="p">(</span><span class="n">message.result</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">message.event_id</span>
+
+    <span class="kr">if</span> <span class="n">jresult.server_status</span> <span class="o">==</span> <span class="n">dhttp.SERVER_START</span> <span class="kr">then</span>
+        <span class="c1">-- Server started</span>
+    <span class="kr">elseif</span> <span class="n">jresult.server_status</span> <span class="o">==</span> <span class="n">dhttp.SERVER_STOP</span> <span class="kr">then</span>
+        <span class="c1">-- Server stopped</span>
+    <span class="kr">else</span>
+    	<span class="kr">if</span> <span class="n">event_id</span> <span class="o">==</span> <span class="mi">123</span> <span class="kr">then</span>
+        	<span class="n">pprint</span><span class="p">(</span><span class="n">jresult</span><span class="p">)</span>
+        	<span class="c1">-- Do something fancy</span>
+       <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="c1">-- Start the server</span>
+    <span class="n">dhttp.server_start</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">server_callbacks</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h3 id="client">Client<a href="#client" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="c1">-- Client settings</span>
+<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+<span class="kd">local</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">8800</span>
+
+<span class="c1">-- Client callbacks</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">client_callbacks</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+    <span class="c1">-- Decode response</span>
+    <span class="kd">local</span> <span class="n">jresult</span> <span class="o">=</span> <span class="n">json.decode</span><span class="p">(</span><span class="n">message.result</span><span class="p">)</span>
+
+    <span class="c1">-- Check error</span>
+    <span class="kr">if</span> <span class="n">jresult.error</span> <span class="kr">then</span>
+        <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Error: &#34;</span><span class="p">,</span> <span class="n">jresult.error</span><span class="p">)</span>
+        <span class="kr">return</span>
+    <span class="kr">end</span>
+
+    <span class="n">pprint</span><span class="p">(</span><span class="n">jresult</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="c1">-- Init the client</span>
+    <span class="n">dhttp.client_start</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">client_callbacks</span><span class="p">)</span>
+
+    <span class="c1">-- Get endpoint</span>
+    <span class="n">dhttp.client_get</span><span class="p">(</span><span class="s2">&#34;/hi&#34;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="kr">end</span>
+</code></pre></div><h2 id="server-api">Server API<a href="#server-api" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h4 id="dhttpserver_starthost-port-callback-log-error-endpoints">dhttp.server_start(<code>host</code>, <code>port</code>, <code>callback</code>, <code>[log]</code>, <code>[error]</code>, <code>[endpoints]</code>)<a href="#dhttpserver_starthost-port-callback-log-error-endpoints" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Init and start the server.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>(<em>string</em>) Host address or IP</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>(<em>int</em>) Port number</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td>(<em>function</em>) Callback function</td>
+</tr>
+<tr>
+<td><code>[log]</code></td>
+<td>(<em>boolean</em>) Turn logging on/off. Default is false</td>
+</tr>
+<tr>
+<td><code>[error]</code></td>
+<td>(<em>boolean</em>) Turn error responses on/off. Default is true</td>
+</tr>
+<tr>
+<td><code>[endpoints]</code></td>
+<td>(<em>table</em>) Optional endpoints</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dhttpserver_stop">dhttp.server_stop()<a href="#dhttpserver_stop" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Gracefully shutdown the server.</p>
+<h4 id="dhttpis_server_running">dhttp.is_server_running()<a href="#dhttpis_server_running" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Check if server is running. Returns boolean.</p>
+<h4 id="dhttpserver_post_contentcontent">dhttp.server_post_content(<code>content</code>)<a href="#dhttpserver_post_contentcontent" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Sets the POST response for all POST endpoints. You can set this anytime.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content </code></td>
+<td>(string) JSON formated string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="endpoints">Endpoints<a href="#endpoints" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>There are several built-in endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&ldquo;/hi&rdquo;</td>
+<td>Says hi!</td>
+</tr>
+<tr>
+<td>&ldquo;/num/(\d+)&rdquo;</td>
+<td>(<em>GET</em>) Gets only [0-9] as integer</td>
+</tr>
+<tr>
+<td>&ldquo;/str/(\w+)&rdquo;</td>
+<td>(<em>GET</em>) Gets only [a-zA-Z0-9] as string</td>
+</tr>
+<tr>
+<td>&ldquo;/post&rdquo;</td>
+<td>(<em>POST</em>) Generic post endpoint with params</td>
+</tr>
+<tr>
+<td>&ldquo;/stop&rdquo;</td>
+<td>(<em>GET</em>) Stop the server</td>
+</tr>
+</tbody>
+</table>
+<p>You can define custom endpoints.<br>
+Endpoints support regex. But &ldquo;?&rdquo; character is reserved and may cause a crash.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">endpoints</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="n">endpoint_type</span> <span class="o">=</span> <span class="n">dhttp.METHOD_GET</span><span class="p">,</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&#34;/monster/(</span><span class="se">\\</span><span class="s2">d+)&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="n">endpoint_type</span> <span class="o">=</span> <span class="n">dhttp.METHOD_POST</span><span class="p">,</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&#34;/move&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">dhttp.server_start</span><span class="p">(</span><span class="s2">&#34;localhost&#34;</span><span class="p">,</span> <span class="mi">8888</span><span class="p">,</span> <span class="n">server_callbacks</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">)</span>
+
+</code></pre></div><h2 id="client-api">Client API<a href="#client-api" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h4 id="dhttpclient_starthost-port-client_callbacks">dhttp.client_start(<code>host</code>, <code>port</code>, <code>client_callbacks</code>)<a href="#dhttpclient_starthost-port-client_callbacks" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Init the client.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>(<em>string</em>) Host address or IP</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>(<em>int</em>) Port number</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td>(<em>function</em>) Callback function</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dhttpclient_hi">dhttp.client_hi()<a href="#dhttpclient_hi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<p>Defold says hi!</p>
+<h4 id="dhttpclient_getendpoint-event_id">dhttp.client_get(<code>endpoint</code>, <code>[event_id]</code>)<a href="#dhttpclient_getendpoint-event_id" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>endpoint</code></td>
+<td>(<em>string</em>) Endpoint address</td>
+</tr>
+<tr>
+<td><code>[event_id]</code></td>
+<td>(<em>int</em>) Event ID for tracking the action</td>
+</tr>
+</tbody>
+</table>
+<p>Event IDs are for tracking the requests on server and client. They send as a header. You can easily group and parse your triggers by using event ids.</p>
+<h4 id="dhttpclient_postendpoint-params-event_id">dhttp.client_post(<code>endpoint</code>, <code>params</code>, <code>[event_id]</code>)<a href="#dhttpclient_postendpoint-params-event_id" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>endpoint</code></td>
+<td>(<em>string</em>) Endpoint address</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td>(<em>string</em>) JSON formated string</td>
+</tr>
+<tr>
+<td><code>[event_id]</code></td>
+<td>(<em>int</em>) Event ID for tracking the action</td>
+</tr>
+</tbody>
+</table>
+<p>Event IDs are for tracking the requests on server and client. They send as a header. You can easily group and parse your triggers by using event ids.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">temp_table</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="p">}</span>
+
+    <span class="n">jresult</span> <span class="o">=</span> <span class="n">cjson.encode</span><span class="p">(</span><span class="n">temp_table</span><span class="p">)</span>
+
+    <span class="kd">local</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">jresult</span>
+    <span class="p">}</span>
+
+    <span class="n">dhttp.client_post</span><span class="p">(</span><span class="s2">&#34;/post&#34;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div><h4 id="constants">Constants<a href="#constants" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<h5 id="dhttpmethod_get">dhttp.METHOD_GET<a href="#dhttpmethod_get" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
+<h5 id="dhttpmethod_post">dhttp.METHOD_POST<a href="#dhttpmethod_post" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
+<h5 id="dhttpserver_start">dhttp.SERVER_START<a href="#dhttpserver_start" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
+<h5 id="dhttpserver_stop-1">dhttp.SERVER_STOP<a href="#dhttpserver_stop-1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
+<h2 id="dependencies">Dependencies<a href="#dependencies" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Build by using <a href="https://github.com/yhirose/cpp-httplib">cpp-httplib</a><br>
+Characters by <a href="https://twitter.com/bevouliin">@bevouliin</a></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://selimanac.github.io/tags/defold">defold</a></span><span class="tag"><a href="https://selimanac.github.io/tags/game-development">game development</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>706 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-10-29 10:44 &#43;0300</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://selimanac.github.io/posts/physics-body-editor-for-defold/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Physics Body Editor for Defold [Deprecated]</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p style="opacity: 0.6;">
+				
+			<a href="https://selimanac.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+	 
+	   <br>
+	 
+		   Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a>
+	   </p>
+	</footer>
+
+
+
+	<script src="https://selimanac.github.io/js/bundle.min.795cc5560feaf6c78f267b98376472d6b3114b5d73a39e78541784254e68bf10.js" integrity="sha256-eVzFVg/q9sePJnuYN2Ry1rMRS11zo554VBeEJU5ovxA=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

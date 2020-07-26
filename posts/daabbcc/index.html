@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="DAABBCC">
+<meta itemprop="description" content="This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+Special thanks to Randy Gaul for Branch and Bound implementation.
+HashTable and Array by Mathias Westerdahl
+Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
+What is DAABBCC?
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.">
+<meta itemprop="datePublished" content="2018-03-17T10:44:44&#43;03:00" />
+<meta itemprop="dateModified" content="2019-11-17T10:44:44&#43;03:00" />
+<meta itemprop="wordCount" content="476">
+
+
+
+<meta itemprop="keywords" content="defold,game development,c&#43;&#43;," /><meta property="og:title" content="DAABBCC" />
+<meta property="og:description" content="This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+Special thanks to Randy Gaul for Branch and Bound implementation.
+HashTable and Array by Mathias Westerdahl
+Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
+What is DAABBCC?
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://selimanac.github.io/posts/daabbcc/" />
+<meta property="article:published_time" content="2018-03-17T10:44:44+03:00" />
+<meta property="article:modified_time" content="2019-11-17T10:44:44+03:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DAABBCC"/>
+<meta name="twitter:description" content="This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+Special thanks to Randy Gaul for Branch and Bound implementation.
+HashTable and Array by Mathias Westerdahl
+Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
+What is DAABBCC?
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>DAABBCC</title>
+	<link rel="stylesheet" href="https://selimanac.github.io/css/style.min.eac77496566fd7d5768fd650ddb0b2b181ca6a2d7c5fdd6fe6b8ba4bf47e566f.css" integrity="sha256-6sd0llZv19V2j9ZQ3bCysYHKai18X91v5ri6S/R+Vm8=" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://selimanac.github.io/css/sa.css">
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://selimanac.github.io/">
+                        <svg class="logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.01 86.7"><path d="M49.67,2.58A42.51,42.51,0,0,0,7.16,45.09V89.28h85V45.09A42.5,42.5,0,0,0,49.67,2.58ZM66.26,71.94a4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0V70.66H66.26ZM50.33,59.21A15.94,15.94,0,1,1,66.27,43.27,15.94,15.94,0,0,1,50.33,59.21Z" transform="translate(-7.16 -2.58)" fill="currentColor" /></svg>
+                    </a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://selimanac.github.io/posts/">Posts</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/selimanac" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/selimanac" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/selimanac" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated faster">
+		<ul>
+			<li><a href="https://selimanac.github.io/posts/">Posts</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Mar 17, 2018</span><br><span class="post-mod"> Nov 17, 2019</span></div>
+				<h1>DAABBCC</h1>
+			</header>
+			<div class="content">
+				<figure class="big">
+    <img src="/img/posts/daabbcc_header.png"
+         alt="DAABBCC"/> 
+</figure>
+
+<p>This is a <a href="https://box2d.org/files/ErinCatto_DynamicBVH_Full.pdf">Dynamic AABB Tree</a> native extension with Branch and Bound Algorithm for <a href="https://www.defold.com/">Defold Engine</a>. DAABBCC build by using Box2D’s <a href="https://github.com/erincatto/box2d/blob/master/src/collision/b2_dynamic_tree.cpp">Dynamic Tree</a>.</p>
+<p>Special thanks to <a href="https://twitter.com/RandyPGaul">Randy Gaul</a> for <a href="https://github.com/erincatto/Box2D/pull/548">Branch and Bound</a> implementation.<br>
+<a href="https://github.com/JCash/containers">HashTable and Array</a> by <a href="https://github.com/JCash">Mathias Westerdahl</a><br>
+Box2D Copyright (c) 2009 Erin Catto <a href="http://www.box2d.org">http://www.box2d.org</a></p>
+<p><strong>What is DAABBCC?</strong></p>
+<p>A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well. The data structure provides an efficient way of detecting potential overlap between objects. DAABBCC does not contain narrow-phase collision detection.</p>
+<p>You can use it whenever precise collision manifold(narrow-phase) is not required.</p>
+<h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>You can use the DAABBCC in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>.<br>
+Open your game.project file and in the dependencies field under project add:</p>
+<blockquote>
+<p><a href="https://github.com/selimanac/DAABBCC/archive/v2.0.zip">https://github.com/selimanac/DAABBCC/archive/v2.0.zip</a></p>
+</blockquote>
+<h2 id="release-notes">Release Notes<a href="#release-notes" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>2.0</p>
+<p>This is a complete rewritten version by using Box2D’s <a href="https://github.com/erincatto/Box2D/blob/master/Box2D/Collision/b2DynamicTree.cpp">Dynamic Tree</a>.</p>
+<ul>
+<li>API revised and simplified</li>
+<li>Nearly 6x performance increment according to v1.x (4800 sprites vs 500 sprites)</li>
+<li>Low cpu usage</li>
+<li>Experimental narrow phase collision detections removed</li>
+</ul>
+<p><a href="https://github.com/selimanac/DAABBCC/releases/tag/v1.1">1.1</a></p>
+<p>Final 1.x release.</p>
+<ul>
+<li>Updated cute_c2 version to 1.05</li>
+</ul>
+<p>1.0</p>
+<p>Initial release.</p>
+<h2 id="api">API<a href="#api" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h3 id="aabbnew_group">aabb.new_group()<a href="#aabbnew_group" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>New group for AABBs. Currently groups has limited to 20.</p>
+<blockquote>
+<p>Returns group id.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">enemy_group</span> <span class="o">=</span> <span class="n">aabb.new_group</span><span class="p">()</span>
+</code></pre></div><h3 id="aabbinsertgroup_id-x-y-w-h">aabb.insert(<code>group_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)<a href="#aabbinsertgroup_id-x-y-w-h" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Insert AABB into the group.</p>
+<blockquote>
+<p>Returns aabb id.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">local</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="kd">local</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="kd">local</span> <span class="n">enemy_id</span> <span class="o">=</span> <span class="n">aabb.insert</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+</code></pre></div><p>You can get position and size from sprite.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">self.pos</span> <span class="o">=</span> <span class="n">go.get_position</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+<span class="n">self.size</span> <span class="o">=</span> <span class="n">go.get</span><span class="p">(</span><span class="s2">&#34;#sprite&#34;</span><span class="p">,</span> <span class="s2">&#34;size&#34;</span><span class="p">)</span>
+
+<span class="n">self.enemy_id</span> <span class="o">=</span> <span class="n">aabb.insert</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.pos</span><span class="p">.</span><span class="n">x</span> <span class="p">,</span> <span class="n">self.pos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">self.size</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self.size</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbupdategroup_id-aabb_id-x-y-w-h">aabb.update(<code>group_id</code>, <code>aabb_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)<a href="#aabbupdategroup_id-aabb_id-x-y-w-h" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Updates the AABB position and size when you change it is position or size.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">new_x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="kd">local</span> <span class="n">new_y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="kd">local</span> <span class="n">new_w</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="kd">local</span> <span class="n">new_h</span> <span class="o">=</span> <span class="mi">60</span>
+
+<span class="n">aabb.update</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.enemy_id</span><span class="p">,</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_w</span><span class="p">,</span> <span class="n">new_h</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbquery_idgroup_id-aabb_id">aabb.query_id(<code>group_id</code>, <code>aabb_id</code>)<a href="#aabbquery_idgroup_id-aabb_id" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Query the possible overlaps using ID.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.query_id</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">self.enemy_id</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbquerygroup_id-x-y-w-h">aabb.query(<code>group_id</code>, <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>)<a href="#aabbquerygroup_id-x-y-w-h" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Query the possible overlaps using AABB.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.query</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbraycastgroup_id-start_x-start_y-end_x-end_y">aabb.raycast(<code>group_id</code>, <code>start_x</code>, <code>start_y</code>, <code>end_x</code>, <code>end_y</code>)<a href="#aabbraycastgroup_id-start_x-start_y-end_x-end_y" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Query the possible overlaps using RAYCAST.</p>
+<blockquote>
+<p>Returns result table with ids.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">ray_start</span> <span class="o">=</span> <span class="n">vmath.vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">ray_end</span> <span class="o">=</span> <span class="n">vmath.vector3</span><span class="p">(</span><span class="mi">365</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">result</span> <span class="o">=</span> <span class="n">aabb.raycast</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">,</span> <span class="n">ray_start.x</span><span class="p">,</span> <span class="n">ray_start.y</span><span class="p">,</span> <span class="n">ray_end.x</span><span class="p">,</span> <span class="n">ray_end.y</span><span class="p">)</span>
+</code></pre></div><h3 id="aabbremove_groupgroup_id">aabb.remove_group(<code>group_id</code>)<a href="#aabbremove_groupgroup_id" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Removes the group and cleans all AABBs</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">aabb.remove_group</span><span class="p">(</span><span class="n">enemy_group</span><span class="p">)</span>
+</code></pre></div><h2 id="notes">Notes<a href="#notes" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<ul>
+<li>Currently groups has limited to 20. I have a solution for this but I don&rsquo;t want to expose it to API now. If you need more groups, please open an issue. I can expose it to api</li>
+<li>Performance is really depend on CPU load. I manage to get 60fps with 4800 sprite on my desktop. But this doesn&rsquo;t mean that you can use 4800 sprites on mobile platforms. You have to do your own test.</li>
+</ul>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://selimanac.github.io/tags/defold">defold</a></span><span class="tag"><a href="https://selimanac.github.io/tags/game-development">game development</a></span><span class="tag"><a href="https://selimanac.github.io/tags/c&#43;&#43;">c&#43;&#43;</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>476 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-03-17 10:44 &#43;0300</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://selimanac.github.io/posts/no-nation-devlog-1/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Devlog – No Nation / 1</span>
+			</a>
+			<a class="prev-post" href="https://selimanac.github.io/posts/pixel-art/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>My Pixel Arts</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p style="opacity: 0.6;">
+				
+			<a href="https://selimanac.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+	 
+	   <br>
+	 
+		   Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a>
+	   </p>
+	</footer>
+
+
+
+	<script src="https://selimanac.github.io/js/bundle.min.795cc5560feaf6c78f267b98376472d6b3114b5d73a39e78541784254e68bf10.js" integrity="sha256-eVzFVg/q9sePJnuYN2Ry1rMRS11zo554VBeEJU5ovxA=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

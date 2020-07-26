@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Selim Anaç</title>
+    <link>https://selimanac.github.io/</link>
+    <description>Recent content on Selim Anaç</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 29 Oct 2019 10:44:44 +0300</lastBuildDate>
+    
+	<atom:link href="https://selimanac.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tiny Http – Server and Client for Defold</title>
+      <link>https://selimanac.github.io/posts/tiny-http-for-defold/</link>
+      <pubDate>Tue, 29 Oct 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/tiny-http-for-defold/</guid>
+      <description>Tiny Http - Defold Native Extension is a simple http server and client.
+Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&amp;rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding.</description>
+    </item>
+    
+    <item>
+      <title>Physics Body Editor for Defold [Deprecated]</title>
+      <link>https://selimanac.github.io/posts/physics-body-editor-for-defold/</link>
+      <pubDate>Tue, 22 Oct 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/physics-body-editor-for-defold/</guid>
+      <description>Physics Body Editor for Defold v1.5.0 has been released.
+I was in research for one of our game prototype which requires custom collision shapes. I came across the Physics Body Editor was originally developed by Aurelien Ribon. But its internal system was designed to use with libGDX. So I decided to make my own exporter for Defold build top on the editor.
+This is the modified version of Physics Body Editor for Defold Game Engine compatibility.</description>
+    </item>
+    
+    <item>
+      <title>A* Path Finding for Defold Engine</title>
+      <link>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</link>
+      <pubDate>Wed, 31 Jul 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</guid>
+      <description>This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+Defold Asset Portal
+Github
+Simple Examples
+     Installation You can use the A* extension in your own project by adding this project as a Defold library dependency.
+Open your game.project file and in the dependencies field under project add:
+ https://github.com/selimanac/defold-astar/archive/master.zip
+ Examples https://github.com/selimanac/defold-astar-examples
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map.</description>
+    </item>
+    
+    <item>
+      <title>Human Trials - UDGJ#2</title>
+      <link>https://selimanac.github.io/posts/human-trials-udgj-2/</link>
+      <pubDate>Wed, 10 Jul 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/human-trials-udgj-2/</guid>
+      <description>It was long time ago. Nobody remembers when and what was happened.
+Now, humankind is nothing more than a test subject for an AI. You should find your way out by manipulating AI&amp;rsquo;s source code bit by bit.
+Don&amp;rsquo;t forget; You have to die over and over!
+ I build this game for Unofficial Defold Game Jam#2. You can play on itch.io
+Human Trials by selimanac    Credits &amp;amp; Dependencies</description>
+    </item>
+    
+    <item>
+      <title>MOD Player for Defold Engine</title>
+      <link>https://selimanac.github.io/posts/mod-player-for-defold-engine/</link>
+      <pubDate>Mon, 08 Jul 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/mod-player-for-defold-engine/</guid>
+      <description>Mod Player can load and play good old .XM and .MOD file formats.
+As a dinosaur developer, I miss my C64 and Amiga days. When developing this simple extension I remembered those days a lot.
+There are some hitch-ups, but extension supports MacOS, Windows, Linux, Android, iOS and HTML5. Unfortunately, HTML5 bundle is little tricky . There is a little py script which simplify things for now. Please read the details on Github page.</description>
+    </item>
+    
+    <item>
+      <title>PCG Random Number Generator for Defold</title>
+      <link>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</link>
+      <pubDate>Tue, 09 Apr 2019 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</guid>
+      <description>Defold - PCG Random PCG Random Number Generator Native Extension for the Defold Game Engine
+This extension allow you to generate random numbers using minimal C implementation of PCG.
+It uses entropy seed internally with fallback to time based seed. You can switch to Time based seed and remove the entropy by uncommenting/commenting a few lines on the source code, but I don&amp;rsquo;t think it is necessary.
+Installation You can use PCG Random in your own project by adding this project as a Defold library dependency.</description>
+    </item>
+    
+    <item>
+      <title>Defold API Snippets for Visual Studio Code</title>
+      <link>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</link>
+      <pubDate>Wed, 26 Sep 2018 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</guid>
+      <description>Defold API Snippets for Visual Studio Code Full api snippets for Defold Engine is available on marketplace.
+All Lua and C++ methods, messages, properties and brief descriptions are included.
+Marketplace
+Github
+ Ordered Tabstops Message Generation play_sound -&amp;gt; msg.post(receiver, &amp;quot;play_sound&amp;quot;, {[delay], [gain]})
+model_animation_done -&amp;gt; msg.post(receiver, &amp;quot;model_animation_done&amp;quot;, {animation_id, playback})
+Properties with quotation marks &amp;quot;scale&amp;quot;
+Release Notes 1.2.2  API version 1.2.169 Python script is updated. It is now download, unpack and parse the docs.</description>
+    </item>
+    
+    <item>
+      <title>Pixel Art</title>
+      <link>https://selimanac.github.io/photos/</link>
+      <pubDate>Fri, 22 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://selimanac.github.io/photos/</guid>
+      <description>Midnight blossoms.</description>
+    </item>
+    
+    <item>
+      <title>My Assemblage Works</title>
+      <link>https://selimanac.github.io/posts/my-assemblage-works/</link>
+      <pubDate>Wed, 04 Apr 2018 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/my-assemblage-works/</guid>
+      <description>Using various junk materials.
+                                                                                                                                    </description>
+    </item>
+    
+    <item>
+      <title>Devlog – No Nation / 1</title>
+      <link>https://selimanac.github.io/posts/no-nation-devlog-1/</link>
+      <pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate>
+      
+      <guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid>
+      <description>## ABANDONED ##
+I started to learn Defold Engine couple months ago. I love it and I decided to build something with it.
+ No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
+Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description>
+    </item>
+    
+  </channel>
+</rss>
