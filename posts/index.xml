@@ -1,24 +1,6 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Posts on Selim Anaç</title>
-		<link>https://selimanac.github.io/posts/</link>
-		<description>Recent content in Posts on Selim Anaç</description>
-		<generator>Hugo -- gohugo.io</generator>
-		<language>en-us</language>
-		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Tue, 29 Oct 2019 10:44:44 +0300</lastBuildDate>
-		<atom:link href="https://selimanac.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-		
-		<item>
-			<title>Tiny Http – Server and Client for Defold</title>
-			<link>https://selimanac.github.io/posts/tiny-http-for-defold/</link>
-			<pubDate>Tue, 29 Oct 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/tiny-http-for-defold/</guid>
-			<description>Tiny Http - Defold Native Extension is a simple http server and client.
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Selim Anaç</title><link>https://selimanac.github.io/posts/</link><description>Recent content in Posts on Selim Anaç</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 29 Oct 2019 10:44:44 +0300</lastBuildDate><atom:link href="https://selimanac.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Tiny Http – Server and Client for Defold</title><link>https://selimanac.github.io/posts/tiny-http-for-defold/</link><pubDate>Tue, 29 Oct 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/tiny-http-for-defold/</guid><description>Tiny Http - Defold Native Extension is a simple http server and client.
 Server works on iOS, Android, MacOS, Win 10 and Linux(Debian 10.x). HTML5 build is not supported. Since I don&amp;rsquo;t need it, SSL not supported. But it is possible to add this feature, feel free to PR if you want to.
-All requests and responses are JSON. You may consider of using CJSON for encoding and decoding.</description>
-			<content type="html"><![CDATA[<figure class="big">
+All requests and responses are JSON. You may consider of using CJSON for encoding and decoding.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/tiny_http_dark.png"
          alt="Human Trials"/> 
 </figure>
@@ -328,19 +310,9 @@ Endpoints support regex. But &ldquo;?&rdquo; character is reserved and may cause
 <h2 id="dependencies">Dependencies</h2>
 <p>Build by using <a href="https://github.com/yhirose/cpp-httplib">cpp-httplib</a><br>
 Characters by <a href="https://twitter.com/bevouliin">@bevouliin</a></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Physics Body Editor for Defold [Deprecated]</title>
-			<link>https://selimanac.github.io/posts/physics-body-editor-for-defold/</link>
-			<pubDate>Tue, 22 Oct 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/physics-body-editor-for-defold/</guid>
-			<description>Physics Body Editor for Defold v1.5.0 has been released.
+]]></content></item><item><title>Physics Body Editor for Defold [Deprecated]</title><link>https://selimanac.github.io/posts/physics-body-editor-for-defold/</link><pubDate>Tue, 22 Oct 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/physics-body-editor-for-defold/</guid><description>Physics Body Editor for Defold v1.5.0 has been released.
 I was in research for one of our game prototype which requires custom collision shapes. I came across the Physics Body Editor was originally developed by Aurelien Ribon. But its internal system was designed to use with libGDX. So I decided to make my own exporter for Defold build top on the editor.
-This is the modified version of Physics Body Editor for Defold Game Engine compatibility.</description>
-			<content type="html"><![CDATA[<figure class="big">
+This is the modified version of Physics Body Editor for Defold Game Engine compatibility.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/pbe_header.png"
          alt="Human Trials"/> 
 </figure>
@@ -380,25 +352,15 @@ This is the modified version of Physics Body Editor for Defold Game Engine compa
 <li>Defold Exporter with .convexshapes and .go files.</li>
 <li>Lots of major &amp; minor bugs fixed.</li>
 </ul>
-]]></content>
-		</item>
-		
-		<item>
-			<title>A* Path Finding for Defold Engine</title>
-			<link>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</link>
-			<pubDate>Wed, 31 Jul 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</guid>
-			<description>This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+]]></content></item><item><title>A* Path Finding for Defold Engine</title><link>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</link><pubDate>Wed, 31 Jul 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/a-path-finding-for-defold-engine/</guid><description>This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
 Defold Asset Portal
 Github
 Simple Examples
-     Installation You can use the A* extension in your own project by adding this project as a Defold library dependency.
+Installation You can use the A* extension in your own project by adding this project as a Defold library dependency.
 Open your game.project file and in the dependencies field under project add:
- https://github.com/selimanac/defold-astar/archive/master.zip
- Examples https://github.com/selimanac/defold-astar-examples
-API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map.</description>
-			<content type="html"><![CDATA[<figure class="big">
+https://github.com/selimanac/defold-astar/archive/master.zip
+Examples https://github.com/selimanac/defold-astar-examples
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/astar_header.png"
          alt="Human Trials"/> 
 </figure>
@@ -553,21 +515,11 @@ Returns multiple values:</p>
 <span class="kr">end</span>
 </code></pre></div><h3 id="astarreset_cache">astar.reset_cache()</h3>
 <p>If your state space is huge, occasionally call astar.reset_cache() to free unused memory.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Human Trials - UDGJ#2</title>
-			<link>https://selimanac.github.io/posts/human-trials-udgj-2/</link>
-			<pubDate>Wed, 10 Jul 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/human-trials-udgj-2/</guid>
-			<description>It was long time ago. Nobody remembers when and what was happened.
+]]></content></item><item><title>Human Trials - UDGJ#2</title><link>https://selimanac.github.io/posts/human-trials-udgj-2/</link><pubDate>Wed, 10 Jul 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/human-trials-udgj-2/</guid><description>It was long time ago. Nobody remembers when and what was happened.
 Now, humankind is nothing more than a test subject for an AI. You should find your way out by manipulating AI&amp;rsquo;s source code bit by bit.
 Don&amp;rsquo;t forget; You have to die over and over!
- I build this game for Unofficial Defold Game Jam#2. You can play on itch.io
-Human Trials by selimanac    Credits &amp;amp; Dependencies</description>
-			<content type="html"><![CDATA[<figure class="big">
+I build this game for Unofficial Defold Game Jam#2. You can play on itch.io
+Human Trials by selimanac Credits &amp;amp; Dependencies</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/human_header.png"
          alt="Human Trials"/> 
 </figure>
@@ -596,19 +548,9 @@ Human Trials by selimanac    Credits &amp;amp; Dependencies</description>
 <li>Mod Music <a href="https://modarchive.org/index.php?request=view_by_moduleid&amp;query=35387">Catch 22</a> by Distance &amp; <a href="https://twitter.com/esaruoho">Lackluster</a></li>
 <li>Various SFX from <a href="https://freesound.org/">freesound.org</a></li>
 </ul>
-]]></content>
-		</item>
-		
-		<item>
-			<title>MOD Player for Defold Engine</title>
-			<link>https://selimanac.github.io/posts/mod-player-for-defold-engine/</link>
-			<pubDate>Mon, 08 Jul 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/mod-player-for-defold-engine/</guid>
-			<description>Mod Player can load and play good old .XM and .MOD file formats.
+]]></content></item><item><title>MOD Player for Defold Engine</title><link>https://selimanac.github.io/posts/mod-player-for-defold-engine/</link><pubDate>Mon, 08 Jul 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/mod-player-for-defold-engine/</guid><description>Mod Player can load and play good old .XM and .MOD file formats.
 As a dinosaur developer, I miss my C64 and Amiga days. When developing this simple extension I remembered those days a lot.
-There are some hitch-ups, but extension supports MacOS, Windows, Linux, Android, iOS and HTML5. Unfortunately, HTML5 bundle is little tricky . There is a little py script which simplify things for now. Please read the details on Github page.</description>
-			<content type="html"><![CDATA[<figure class="big">
+There are some hitch-ups, but extension supports MacOS, Windows, Linux, Android, iOS and HTML5. Unfortunately, HTML5 bundle is little tricky . There is a little py script which simplify things for now. Please read the details on Github page.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/modplayer-2000x666.png"
          alt="MOD Player"/> 
 </figure>
@@ -798,20 +740,10 @@ Use it with caution!</p>
 <li><a href="https://github.com/JCash/containers/blob/master/src/jc/hashtable.h">hashtable</a></li>
 </ul>
 <p><strong>Thanks to all Defold team for their great support.</strong></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>PCG Random Number Generator for Defold</title>
-			<link>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</link>
-			<pubDate>Tue, 09 Apr 2019 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</guid>
-			<description>Defold - PCG Random PCG Random Number Generator Native Extension for the Defold Game Engine
+]]></content></item><item><title>PCG Random Number Generator for Defold</title><link>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</link><pubDate>Tue, 09 Apr 2019 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/pcg-random-number-generator-for-defold/</guid><description>Defold - PCG Random PCG Random Number Generator Native Extension for the Defold Game Engine
 This extension allow you to generate random numbers using minimal C implementation of PCG.
 It uses entropy seed internally with fallback to time based seed. You can switch to Time based seed and remove the entropy by uncommenting/commenting a few lines on the source code, but I don&amp;rsquo;t think it is necessary.
-Installation You can use PCG Random in your own project by adding this project as a Defold library dependency.</description>
-			<content type="html"><![CDATA[<figure class="big">
+Installation You can use PCG Random in your own project by adding this project as a Defold library dependency.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/pcg-header-2000x666.png"
          alt="Defold API"/> 
 </figure>
@@ -862,24 +794,14 @@ Same as <strong>math.random()</strong></p>
 </ul>
 <p>1.0</p>
 <p>Initial release.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Defold API Snippets for Visual Studio Code</title>
-			<link>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</link>
-			<pubDate>Wed, 26 Sep 2018 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</guid>
-			<description>Defold API Snippets for Visual Studio Code Full api snippets for Defold Engine is available on marketplace.
+]]></content></item><item><title>Defold API Snippets for Visual Studio Code</title><link>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</link><pubDate>Wed, 26 Sep 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/defold-api-for-visual-studio-code/</guid><description>Defold API Snippets for Visual Studio Code Full api snippets for Defold Engine is available on marketplace.
 All Lua and C++ methods, messages, properties and brief descriptions are included.
 Marketplace
 Github
- Ordered Tabstops Message Generation play_sound -&amp;gt; msg.post(receiver, &amp;quot;play_sound&amp;quot;, {[delay], [gain]})
+Ordered Tabstops Message Generation play_sound -&amp;gt; msg.post(receiver, &amp;quot;play_sound&amp;quot;, {[delay], [gain]})
 model_animation_done -&amp;gt; msg.post(receiver, &amp;quot;model_animation_done&amp;quot;, {animation_id, playback})
 Properties with quotation marks &amp;quot;scale&amp;quot;
-Release Notes 1.2.2  API version 1.2.169 Python script is updated. It is now download, unpack and parse the docs.</description>
-			<content type="html"><![CDATA[<figure class="big">
+Release Notes 1.2.2 API version 1.2.169 Python script is updated. It is now download, unpack and parse the docs.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/vscode-api-2000x666.png"
          alt="Defold API"/> 
 </figure>
@@ -961,18 +883,7 @@ All Lua and C++ methods, messages,  properties and brief descriptions are includ
 </ul>
 <h2 id="json-parser">Json Parser</h2>
 <p>I build this snippets by using a simple Python script. It parses all json files from api docs and converts them to single snippet file. It is available in the <code>src</code> folder of <a href="https://github.com/selimanac/defold-vsc-snippets">Github repo</a>.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>My Assemblage Works</title>
-			<link>https://selimanac.github.io/posts/my-assemblage-works/</link>
-			<pubDate>Wed, 04 Apr 2018 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/my-assemblage-works/</guid>
-			<description>Using various junk materials.
-                                                                                                                                    </description>
-			<content type="html"><![CDATA[<p><img src="/img/assemblage/Cometome.jpg" alt="img"></p>
+]]></content></item><item><title>My Assemblage Works</title><link>https://selimanac.github.io/posts/my-assemblage-works/</link><pubDate>Wed, 04 Apr 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/my-assemblage-works/</guid><description>Using various junk materials.</description><content type="html"><![CDATA[<p><img src="/img/assemblage/Cometome.jpg" alt="img"></p>
 <p>Using various junk materials.</p>
 <p>
 
@@ -1306,20 +1217,10 @@ All Lua and C++ methods, messages,  properties and brief descriptions are includ
 </div>
 
 
-]]></content>
-		</item>
-		
-		<item>
-			<title>Devlog – No Nation / 1</title>
-			<link>https://selimanac.github.io/posts/no-nation-devlog-1/</link>
-			<pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid>
-			<description>## ABANDONED ##
+]]></content></item><item><title>Devlog – No Nation / 1</title><link>https://selimanac.github.io/posts/no-nation-devlog-1/</link><pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid><description>## ABANDONED ##
 I started to learn Defold Engine couple months ago. I love it and I decided to build something with it.
- No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
-Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description>
-			<content type="html"><![CDATA[<p><em><strong>## ABANDONED ##</strong></em></p>
+No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
+Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description><content type="html"><![CDATA[<p><em><strong>## ABANDONED ##</strong></em></p>
 <p>I started to learn <a href="https://www.defold.com/">Defold Engine</a> couple months ago. I love it and I decided to build something with it.</p>
 <figure class="big">
     <img src="/img/posts/nonation-header.png"
@@ -1383,22 +1284,12 @@ Example Pixel Arts From Game This is the initial/prototype drawing just for the 
 <p>It is possible to extend core engine on Defold with <a href="https://www.defold.com/manuals/extensions/">Native Extensions</a>.  You can  use  C, C++, Objective C, Java or Javascript,  depending on target platform.</p>
 <p>Since there isn&rsquo;t a build-in culling in Defold, I need a way to detect offscreen objects.  I found that best way to do it for large amount of moving objects is using Dynamic AABB Trees. So I decided to build my own native extension for this purpose.  You can find it on <a href="https://github.com/selimanac/DAABBCC">Github</a>.  Basically it is a broad phase collision detection library. But I also added experimental narrow phase collision detection library (<a href="https://github.com/RandyGaul/tinyheaders">tinyc2</a>) to it.</p>
 <p>Right now I&rsquo;m implementing my <a href="https://www.selimanac.com/daabbcc-aabb-tree-experimental-collision-detection-native-extension-for-defold-engine/">DAABBCC</a> library into the game logic. Meanwhile I&rsquo;m also working on character dialogs.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>DAABBCC</title>
-			<link>https://selimanac.github.io/posts/daabbcc/</link>
-			<pubDate>Sat, 17 Mar 2018 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/daabbcc/</guid>
-			<description>This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+]]></content></item><item><title>DAABBCC</title><link>https://selimanac.github.io/posts/daabbcc/</link><pubDate>Sat, 17 Mar 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/daabbcc/</guid><description>This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
 Special thanks to Randy Gaul for Branch and Bound implementation.
 HashTable and Array by Mathias Westerdahl
 Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
 What is DAABBCC?
-A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.</description>
-			<content type="html"><![CDATA[<figure class="big">
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.</description><content type="html"><![CDATA[<figure class="big">
     <img src="/img/posts/daabbcc_header.png"
          alt="DAABBCC"/> 
 </figure>
@@ -1492,23 +1383,13 @@ Open your game.project file and in the dependencies field under project add:</p>
 <li>Currently groups has limited to 20. I have a solution for this but I don&rsquo;t want to expose it to API now. If you need more groups, please open an issue. I can expose it to api</li>
 <li>Performance is really depend on CPU load. I manage to get 60fps with 4800 sprite on my desktop. But this doesn&rsquo;t mean that you can use 4800 sprites on mobile platforms. You have to do your own test.</li>
 </ul>
-]]></content>
-		</item>
-		
-		<item>
-			<title>My Pixel Arts</title>
-			<link>https://selimanac.github.io/posts/pixel-art/</link>
-			<pubDate>Sun, 18 Feb 2018 10:44:44 +0300</pubDate>
-			
-			<guid>https://selimanac.github.io/posts/pixel-art/</guid>
-			<description>Examples from my past pixel art tryouts.
-                               Hellboy
-      Hellboy
-      Snowpiercer
-      Snowpiercer
-      Phantom
-      No Nation - Game prototype</description>
-			<content type="html"><![CDATA[<p>Examples from my past pixel art tryouts.</p>
+]]></content></item><item><title>My Pixel Arts</title><link>https://selimanac.github.io/posts/pixel-art/</link><pubDate>Sun, 18 Feb 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/pixel-art/</guid><description>Examples from my past pixel art tryouts.
+Hellboy
+Hellboy
+Snowpiercer
+Snowpiercer
+Phantom
+No Nation - Game prototype</description><content type="html"><![CDATA[<p>Examples from my past pixel art tryouts.</p>
 <p>
 
   
@@ -1701,8 +1582,4 @@ Open your game.project file and in the dependencies field under project add:</p>
 
 </div>
 </p>
-]]></content>
-		</item>
-		
-	</channel>
-</rss>
+]]></content></item></channel></rss>

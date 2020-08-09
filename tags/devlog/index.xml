@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>devlog on Selim Anaç</title>
-    <link>https://selimanac.github.io/tags/devlog/</link>
-    <description>Recent content in devlog on Selim Anaç</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 18 Mar 2018 10:44:44 +0300</lastBuildDate>
-    
-	<atom:link href="https://selimanac.github.io/tags/devlog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Devlog – No Nation / 1</title>
-      <link>https://selimanac.github.io/posts/no-nation-devlog-1/</link>
-      <pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate>
-      
-      <guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid>
-      <description>## ABANDONED ##
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>devlog on Selim Anaç</title><link>https://selimanac.github.io/tags/devlog/</link><description>Recent content in devlog on Selim Anaç</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Mar 2018 10:44:44 +0300</lastBuildDate><atom:link href="https://selimanac.github.io/tags/devlog/index.xml" rel="self" type="application/rss+xml"/><item><title>Devlog – No Nation / 1</title><link>https://selimanac.github.io/posts/no-nation-devlog-1/</link><pubDate>Sun, 18 Mar 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/no-nation-devlog-1/</guid><description>## ABANDONED ##
 I started to learn Defold Engine couple months ago. I love it and I decided to build something with it.
- No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
-Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description>
-    </item>
-    
-  </channel>
-</rss>
+No Nation is a kind of narrative - adventure - action game without jumping :) I don&amp;rsquo;t want to share the narrative details yet. Story take place in 1940&amp;rsquo;s. You are a mobster and there is a world wide dictatorship like Nazis.
+Example Pixel Arts From Game This is the initial/prototype drawing just for the entrance the first level.</description></item></channel></rss>

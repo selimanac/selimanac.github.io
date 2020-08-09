@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="theme-color" content="#494f5c">
-	<meta name="msapplication-TileColor" content="#494f5c">
-<meta itemprop="name" content="A* Path Finding for Defold Engine">
-<meta itemprop="description" content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=theme-color content="#494f5c"><meta name=msapplication-TileColor content="#494f5c"><meta itemprop=name content="A* Path Finding for Defold Engine"><meta itemprop=description content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
 Defold Asset Portal
 Github
 Simple Examples
@@ -16,16 +6,7 @@ Simple Examples
 Open your game.project file and in the dependencies field under project add:
  https://github.com/selimanac/defold-astar/archive/master.zip
  Examples https://github.com/selimanac/defold-astar-examples
-API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map.">
-<meta itemprop="datePublished" content="2019-07-31T10:44:44+03:00" />
-<meta itemprop="dateModified" content="2019-07-01T10:44:44+03:00" />
-<meta itemprop="wordCount" content="688">
-
-
-
-<meta itemprop="keywords" content="defold,game development," />
-<meta property="og:title" content="A* Path Finding for Defold Engine" />
-<meta property="og:description" content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map."><meta itemprop=datePublished content="2019-07-31T10:44:44+03:00"><meta itemprop=dateModified content="2019-07-01T10:44:44+03:00"><meta itemprop=wordCount content="688"><meta itemprop=keywords content="defold,game development,"><meta property="og:title" content="A* Path Finding for Defold Engine"><meta property="og:description" content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
 Defold Asset Portal
 Github
 Simple Examples
@@ -33,14 +14,7 @@ Simple Examples
 Open your game.project file and in the dependencies field under project add:
  https://github.com/selimanac/defold-astar/archive/master.zip
  Examples https://github.com/selimanac/defold-astar-examples
-API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://selimanac.github.io/posts/a-path-finding-for-defold-engine/" />
-<meta property="article:published_time" content="2019-07-31T10:44:44+03:00" />
-<meta property="article:modified_time" content="2019-07-01T10:44:44+03:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A* Path Finding for Defold Engine"/>
-<meta name="twitter:description" content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map."><meta property="og:type" content="article"><meta property="og:url" content="https://selimanac.github.io/posts/a-path-finding-for-defold-engine/"><meta property="article:published_time" content="2019-07-31T10:44:44+03:00"><meta property="article:modified_time" content="2019-07-01T10:44:44+03:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="A* Path Finding for Defold Engine"><meta name=twitter:description content="This is a path finder and A* solver (astar or a-star) native extension for Defold Engine build on MicroPather.
 Defold Asset Portal
 Github
 Simple Examples
@@ -48,250 +22,69 @@ Simple Examples
 Open your game.project file and in the dependencies field under project add:
  https://github.com/selimanac/defold-astar/archive/master.zip
  Examples https://github.com/selimanac/defold-astar-examples
-API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map."/>
+API astar.setup(map_width, map_height, direction, allocate, typical_adjacent, cache) map_width Width of your map."><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color><link rel="shortcut icon" href=/favicon.ico><title>A* Path Finding for Defold Engine</title><link rel=stylesheet href=https://selimanac.github.io/css/style.min.25965f14c462b625f3f7b076041f021d59698f96a4d5f5fab27ac73a494c6c26.css integrity="sha256-JZZfFMRitiXz97B2BB8CHVlpj5ak1fX6snrHOklMbCY=" crossorigin=anonymous><link rel=stylesheet href=https://selimanac.github.io/css/sa.min.92f54802ec0b08f53983e6d17bba7eb098e5bb9315c95e2266b5b37be4a75c7c.css integrity="sha256-kvVIAuwLCPU5g+bRe7p+sJjlu5MVyV4iZrWze+SnXHw="></head><body id=page><header id=site-header class="animated slideInUp"><div class="hdr-wrapper section-inner"><div class=hdr-left><div class=site-branding><a href=https://selimanac.github.io/><svg class="logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.01 86.7"><path d="M49.67 2.58A42.51 42.51.0 007.16 45.09V89.28h85V45.09A42.5 42.5.0 0049.67 2.58zM66.26 71.94a4 4 0 01-8 0 4 4 0 01-8 0 4 4 0 01-8 0 4 4 0 01-8 0V70.66h32zM50.33 59.21A15.94 15.94.0 1166.27 43.27 15.94 15.94.0 0150.33 59.21z" transform="translate(-7.16 -2.58)" fill="currentcolor"/></svg></a></div><nav class="site-nav hide-in-mobile"><a href=https://selimanac.github.io/posts/>Posts</a></nav></div><div class="hdr-right hdr-icons"><span class="hdr-social hide-in-mobile"><a href=https://twitter.com/selimanac target=_blank rel="noopener me" title=Twitter><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg></a><a href=https://instagram.com/selimanac target=_blank rel="noopener me" title=Instagram><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg></a><a href=https://github.com/selimanac target=_blank rel="noopener me" title=Github><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></span><button id=menu-btn class=hdr-btn title=Menu><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header><div id=mobile-menu class="animated faster"><ul><li><a href=https://selimanac.github.io/posts/>Posts</a></li></ul></div><main class="site-main section-inner animated fadeIn faster"><article class=thin><header class=post-header><div class=post-meta><span>Jul 31, 2019</span><br><span class=post-mod>Updated: Jul 1, 2019</span></div><h1>A* Path Finding for Defold Engine</h1></header><div class=content><figure class=big><img src=/img/posts/astar_header.png alt="Human Trials"></figure><p>This is a path finder and A* solver (astar or a-star) native extension for <a href=https://www.defold.com/>Defold Engine</a> build on <a href=https://github.com/leethomason/MicroPather>MicroPather</a>.</p><p><strong><a href=https://www.defold.com/community/projects/150885/>Defold Asset Portal</a></strong><br><strong><a href=https://github.com/selimanac/defold-astar>Github</a></strong><br><strong><a href=https://github.com/selimanac/defold-astar-examples>Simple Examples</a></strong></p><p><div class="embed video-player"><iframe class=youtube-player type=text/html width=640 height=385 src=https://www.youtube.com/embed/ywPEegHxHOU allowfullscreen frameborder=0></iframe></div><div class="embed video-player"><iframe class=youtube-player type=text/html width=640 height=385 src=https://www.youtube.com/embed/3xrmdEkHpYo allowfullscreen frameborder=0></iframe></div></p><h2 id=installation>Installation<a href=#installation class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><p>You can use the A* extension in your own project by adding this project as a <a href=http://www.defold.com/manuals/libraries/>Defold library dependency</a>.<br>Open your game.project file and in the dependencies field under project add:</p><blockquote><p><a href=https://github.com/selimanac/defold-astar/archive/master.zip>https://github.com/selimanac/defold-astar/archive/master.zip</a></p></blockquote><h2 id=examples>Examples<a href=#examples class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><p><a href=https://github.com/selimanac/defold-astar-examples>https://github.com/selimanac/defold-astar-examples</a></p><h2 id=api>API<a href=#api class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><h3 id=astarsetupmap_width-map_height-direction-allocate-typical_adjacent-cache>astar.setup(<code>map_width</code>, <code>map_height</code>, <code>direction</code>, <code>allocate</code>, <code>typical_adjacent</code>, <code>cache</code>)<a href=#astarsetupmap_width-map_height-direction-allocate-typical_adjacent-cache class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><h5 id=map_width><code>map_width</code><a href=#map_width class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Width of your map. This is generally width of your tilemap.</p><h5 id=map_height><code>map_height</code><a href=#map_height class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Height of your map. This is generally width of your tilemap.</p><h5 id=direction><code>direction</code><a href=#direction class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Movement direction. You have two options:<br><strong>astar.DIRECTION_FOUR</strong>: On a square grid that allows 4 directions of movement using <a href=http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#manhattan-distance>Manhattan distance</a><br><strong>astar.DIRECTION_EIGHT</strong>: On a square grid that allows 8 directions of movement using <a href=http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#euclidean-distance>Euclidean distance</a></p><h5 id=allocate><code>allocate</code><a href=#allocate class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>How many states should be internally allocated at a time. This can be hard to get correct. The higher the value, the more memory Patfinder will use.</p><ul><li>If you have a small map (a few thousand states?) it may make sense to pass in the maximum value. This will cache everything, and MicroPather will only need one main memory allocation. For a chess board, allocate would be set to 8x8 (64)</li><li>If your map is large, something like 1/4 the number of possible states is good.</li><li>If your state space is huge, use a multiple (5-10x) of the normal path. &ldquo;Occasionally&rdquo; call <code>astar.reset_cache()</code> to free unused memory.</li></ul><h5 id=typical_adjacent><code>typical_adjacent</code><a href=#typical_adjacent class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Used to determine cache size. The typical number of adjacent states to a given state. (On a chessboard, 8.) Higher values use a little more memory.</p><h5 id=cache><code>cache</code><a href=#cache class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Turn on path caching. Uses more memory (yet again) but at a huge speed advantage if you may call the pather with the same path or sub-path, which is common for pathing over maps in games.</p><div class=highlight><pre class=chroma><code class=language-lua data-lang=lua><span class=kd>local</span> <span class=n>map_width</span> <span class=o>=</span> <span class=mi>5</span>
+<span class=kd>local</span> <span class=n>map_height</span> <span class=o>=</span> <span class=mi>5</span>
+<span class=kd>local</span> <span class=n>direction</span> <span class=o>=</span> <span class=n>astar.DIRECTION_EIGHT</span>
+<span class=kd>local</span> <span class=n>allocate</span> <span class=o>=</span> <span class=n>map_width</span> <span class=o>*</span> <span class=n>map_height</span>
+<span class=kd>local</span> <span class=n>typical_adjacent</span> <span class=o>=</span> <span class=mi>8</span>
+<span class=kd>local</span> <span class=n>cache</span> <span class=o>=</span> <span class=kc>true</span>
 
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
-	<link rel="shortcut icon" href="/favicon.ico">
+<span class=n>astar.setup</span><span class=p>(</span><span class=n>map_width</span><span class=p>,</span> <span class=n>map_height</span><span class=p>,</span> <span class=n>direction</span><span class=p>,</span> <span class=n>allocate</span><span class=p>,</span> <span class=n>typical_adjacent</span><span class=p>,</span> <span class=n>cache</span><span class=p>)</span>
+</code></pre></div><h3 id=astarset_mapworld>astar.set_map(<code>world</code>)<a href=#astarset_mapworld class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>Set your map data.<br>*Setting new map data reset the current cache.</p><div class=highlight><pre class=chroma><code class=language-lua data-lang=lua><span class=kd>local</span> <span class=n>world</span> <span class=o>=</span> <span class=p>{</span>
+<span class=mi>2</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>0</span> <span class=p>,</span><span class=mi>1</span> <span class=p>,</span><span class=mi>0</span><span class=p>,</span>
+<span class=mi>0</span> <span class=p>,</span><span class=mi>0</span> <span class=p>,</span><span class=mi>1</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>1</span><span class=p>,</span>
+<span class=mi>0</span> <span class=p>,</span><span class=mi>0</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>0</span> <span class=p>,</span><span class=mi>0</span><span class=p>,</span>
+<span class=mi>0</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>2</span> <span class=p>,</span><span class=mi>2</span><span class=p>,</span>
+<span class=mi>2</span> <span class=p>,</span><span class=mi>1</span> <span class=p>,</span><span class=mi>1</span> <span class=p>,</span><span class=mi>0</span> <span class=p>,</span><span class=mi>1</span>
+<span class=p>}</span>
 
-	<title>A* Path Finding for Defold Engine</title>
-	<link rel="stylesheet" href="https://selimanac.github.io/css/style.min.25965f14c462b625f3f7b076041f021d59698f96a4d5f5fab27ac73a494c6c26.css" integrity="sha256-JZZfFMRitiXz97B2BB8CHVlpj5ak1fX6snrHOklMbCY=" crossorigin="anonymous">
-	
-	<link rel="stylesheet" href="https://selimanac.github.io/css/sa.css">
-</head>
+<span class=n>astar.set_map</span><span class=p>(</span><span class=n>world</span><span class=p>)</span>
+</code></pre></div><h3 id=astarset_costscosts>astar.set_costs(<code>costs</code>)<a href=#astarset_costscosts class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>Set costs for your walkable tiles on your <code>world</code> table. This table keys determines the walkable area. In this example only numbered &ldquo;2&rdquo; tiles are walkable.</p><p>Table&rsquo;s sum must be the <code>astar.DIRECTION_FOUR</code> or <code>astar.DIRECTION_EIGHT</code>. In this example we want to move 8 direction.</p><p>*Setting new cost data reset the current cache.</p><div class=highlight><pre class=chroma><code class=language-lua data-lang=lua><span class=kd>local</span> <span class=n>costs</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span>
+        <span class=mf>1.0</span><span class=p>,</span> <span class=c1>-- E</span>
+        <span class=mf>1.0</span><span class=p>,</span> <span class=c1>-- N</span>
+        <span class=mf>1.0</span><span class=p>,</span> <span class=c1>-- W</span>
+        <span class=mf>1.0</span><span class=p>,</span> <span class=c1>-- S</span>
+        <span class=mf>1.41</span><span class=p>,</span> <span class=c1>-- NE</span>
+        <span class=mf>1.41</span><span class=p>,</span> <span class=c1>-- NW</span>
+        <span class=mf>1.41</span><span class=p>,</span> <span class=c1>-- SW</span>
+        <span class=mf>1.41</span> <span class=c1>-- SE</span>
+    <span class=p>}</span>
+<span class=p>}</span>
 
-<body id="page">
-	
-	<header id="site-header" class="animated slideInUp">
-		<div class="hdr-wrapper section-inner">
-			<div class="hdr-left">
-				<div class="site-branding">
-					<a href="https://selimanac.github.io/">
-                        <svg class="logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.01 86.7"><path d="M49.67,2.58A42.51,42.51,0,0,0,7.16,45.09V89.28h85V45.09A42.5,42.5,0,0,0,49.67,2.58ZM66.26,71.94a4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0,4,4,0,0,1-8,0V70.66H66.26ZM50.33,59.21A15.94,15.94,0,1,1,66.27,43.27,15.94,15.94,0,0,1,50.33,59.21Z" transform="translate(-7.16 -2.58)" fill="currentColor" /></svg>
-                    </a>
-				</div>
-				<nav class="site-nav hide-in-mobile">
-					
-				<a href="https://selimanac.github.io/posts/">Posts</a>
+<span class=n>astar.set_costs</span><span class=p>(</span><span class=n>costs</span><span class=p>)</span>
+</code></pre></div><h3 id=astarsolvestart_x-start_y-end_x-end_y>astar.solve(<code>start_x</code>, <code>start_y</code>, <code>end_x</code>, <code>end_y</code>)<a href=#astarsolvestart_x-start_y-end_x-end_y class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>Solves the path.<br>Returns multiple values:</p><h5 id=result><code>result</code><a href=#result class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p><strong>astar.SOLVED</strong>: Path solved<br><strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br><strong>astar.START_END_SAME</strong>: Start and End is the same</p><h5 id=size><code>size</code><a href=#size class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Size of the path.</p><h5 id=total_cost><code>total_cost</code><a href=#total_cost class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Total cost of the path</p><h5 id=path><code>path</code><a href=#path class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Table with x and y coordinates. First value is the given start point.</p><div class=highlight><pre class=chroma><code class=language-lua data-lang=lua><span class=kd>local</span> <span class=n>start_x</span> <span class=o>=</span> <span class=mi>1</span>
+<span class=kd>local</span> <span class=n>start_y</span> <span class=o>=</span> <span class=mi>1</span>
+<span class=kd>local</span> <span class=n>end_x</span> <span class=o>=</span> <span class=mi>3</span>
+<span class=kd>local</span> <span class=n>end_y</span> <span class=o>=</span> <span class=mi>3</span>
 
-				</nav>
-			</div>
-			<div class="hdr-right hdr-icons">
-				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/selimanac" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/selimanac" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/selimanac" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
-			</div>
-		</div>
-	</header>
-	<div id="mobile-menu" class="animated faster">
-		<ul>
-			<li><a href="https://selimanac.github.io/posts/">Posts</a></li>
-		</ul>
-	</div>
+<span class=kd>local</span> <span class=n>result</span><span class=p>,</span> <span class=n>size</span><span class=p>,</span> <span class=n>total_cost</span><span class=p>,</span> <span class=n>path</span> <span class=o>=</span> <span class=n>astar.solve</span><span class=p>(</span><span class=n>start_x</span><span class=p>,</span> <span class=n>start_y</span><span class=p>,</span> <span class=n>end_x</span><span class=p>,</span> <span class=n>end_y</span><span class=p>)</span>
 
+<span class=kr>if</span> <span class=n>result</span> <span class=o>==</span> <span class=n>astar.SOLVED</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;SOLVED&#34;</span><span class=p>)</span>
+	<span class=kr>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>v</span> <span class=kr>in</span> <span class=n>ipairs</span><span class=p>(</span><span class=n>path</span><span class=p>)</span> <span class=kr>do</span>
+		<span class=n>print</span><span class=p>(</span><span class=s2>&#34;Tile: &#34;</span><span class=p>,</span> <span class=n>v.x</span> <span class=o>..</span> <span class=s2>&#34;-&#34;</span> <span class=o>..</span> <span class=n>v.y</span><span class=p>)</span>
+	<span class=kr>end</span>
+<span class=kr>elseif</span> <span class=n>result</span> <span class=o>==</span> <span class=n>astar.NO_SOLUTION</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;NO_SOLUTION&#34;</span><span class=p>)</span>
+<span class=kr>elseif</span> <span class=n>result</span> <span class=o>==</span> <span class=n>astar.START_END_SAME</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;START_END_SAME&#34;</span><span class=p>)</span>
+<span class=kr>end</span>
+</code></pre></div><h3 id=astarsolve_nearstart_x-start_y-max_cost>astar.solve_near(<code>start_x</code>, <code>start_y</code>, <code>max_cost</code>)<a href=#astarsolve_nearstart_x-start_y-max_cost class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>Finds the neighbours according to given cost.<br>Returns multiple values:</p><h5 id=near_result><code>near_result</code><a href=#near_result class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p><strong>astar.SOLVED</strong>: Path solved<br><strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br><strong>astar.START_END_SAME</strong>: Start and End is the same</p><h5 id=near_size><code>near_size</code><a href=#near_size class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Size of the found neighbours.</p><h5 id=nears><code>nears</code><a href=#nears class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h5><p>Table with x and y coordinates. First value is the given start point.</p><div class=highlight><pre class=chroma><code class=language-lua data-lang=lua><span class=kd>local</span> <span class=n>start_x</span> <span class=o>=</span> <span class=mi>1</span>
+<span class=kd>local</span> <span class=n>start_y</span> <span class=o>=</span> <span class=mi>1</span>
+<span class=kd>local</span> <span class=n>max_cost</span> <span class=o>=</span> <span class=mf>3.0</span> <span class=c1>-- near</span>
 
-	<main class="site-main section-inner animated fadeIn faster">
-		<article class="thin">
-			<header class="post-header">
-				<div class="post-meta"><span>Jul 31, 2019</span><br><span class="post-mod"> Updated: Jul 1, 2019</span></div>
-				<h1>A* Path Finding for Defold Engine</h1>
-			</header>
-			<div class="content">
-				<figure class="big">
-    <img src="/img/posts/astar_header.png"
-         alt="Human Trials"/> 
-</figure>
+<span class=kd>local</span> <span class=n>near_result</span><span class=p>,</span> <span class=n>near_size</span><span class=p>,</span> <span class=n>nears</span> <span class=o>=</span> <span class=n>astar.solve_near</span><span class=p>(</span><span class=n>start_x</span><span class=p>,</span> <span class=n>start_y</span><span class=p>,</span> <span class=n>max_cost</span><span class=p>)</span>
 
-<p>This is a path finder and A* solver (astar or a-star) native extension for <a href="https://www.defold.com/">Defold Engine</a> build on <a href="https://github.com/leethomason/MicroPather">MicroPather</a>.</p>
-<p><strong><a href="https://www.defold.com/community/projects/150885/">Defold Asset Portal</a></strong><br>
-<strong><a href="https://github.com/selimanac/defold-astar">Github</a></strong><br>
-<strong><a href="https://github.com/selimanac/defold-astar-examples">Simple Examples</a></strong></p>
-<p>
-<div class="embed video-player">
-    <iframe class="youtube-player" type="text/html" 
-            width="640" height="385" 
-            src="https://www.youtube.com/embed/ywPEegHxHOU" 
-            allowfullscreen frameborder="0">
-    </iframe>
-</div>
-
-
-
-<div class="embed video-player">
-    <iframe class="youtube-player" type="text/html" 
-            width="640" height="385" 
-            src="https://www.youtube.com/embed/3xrmdEkHpYo" 
-            allowfullscreen frameborder="0">
-    </iframe>
-</div>
-
-</p>
-<h2 id="installation">Installation<a href="#installation" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-<p>You can use the A* extension in your own project by adding this project as a <a href="http://www.defold.com/manuals/libraries/">Defold library dependency</a>.<br>
-Open your game.project file and in the dependencies field under project add:</p>
-<blockquote>
-<p><a href="https://github.com/selimanac/defold-astar/archive/master.zip">https://github.com/selimanac/defold-astar/archive/master.zip</a></p>
-</blockquote>
-<h2 id="examples">Examples<a href="#examples" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-<p><a href="https://github.com/selimanac/defold-astar-examples">https://github.com/selimanac/defold-astar-examples</a></p>
-<h2 id="api">API<a href="#api" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-<h3 id="astarsetupmap_width-map_height-direction-allocate-typical_adjacent-cache">astar.setup(<code>map_width</code>, <code>map_height</code>, <code>direction</code>, <code>allocate</code>, <code>typical_adjacent</code>, <code>cache</code>)<a href="#astarsetupmap_width-map_height-direction-allocate-typical_adjacent-cache" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<h5 id="map_width"><code>map_width</code><a href="#map_width" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Width of your map. This is generally width of your tilemap.</p>
-<h5 id="map_height"><code>map_height</code><a href="#map_height" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Height of your map. This is generally width of your tilemap.</p>
-<h5 id="direction"><code>direction</code><a href="#direction" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Movement direction. You have two options:<br>
-<strong>astar.DIRECTION_FOUR</strong>: On a square grid that allows 4 directions of movement using <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#manhattan-distance">Manhattan distance</a><br>
-<strong>astar.DIRECTION_EIGHT</strong>: On a square grid that allows 8 directions of movement using <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#euclidean-distance">Euclidean distance</a></p>
-<h5 id="allocate"><code>allocate</code><a href="#allocate" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>How many states should be internally allocated at a time. This can be hard to get correct. The higher the value, the more memory Patfinder will use.</p>
-<ul>
-<li>If you have a small map (a few thousand states?) it may make sense to pass in the maximum value. This will cache everything, and MicroPather will only need one main memory allocation. For a chess board, allocate  would be set to 8x8 (64)</li>
-<li>If your map is large, something like 1/4 the number of possible states is good.</li>
-<li>If your state space is huge, use a multiple (5-10x) of the normal path. &ldquo;Occasionally&rdquo; call <code>astar.reset_cache()</code> to free unused memory.</li>
-</ul>
-<h5 id="typical_adjacent"><code>typical_adjacent</code><a href="#typical_adjacent" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Used to determine cache size. The typical number of adjacent states to a given state. (On a chessboard, 8.) Higher values use a little more memory.</p>
-<h5 id="cache"><code>cache</code><a href="#cache" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Turn on path caching. Uses more memory (yet again) but at a huge speed advantage if you may call the pather with the same path or sub-path, which is common for pathing over maps in games.</p>
-<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">map_width</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="kd">local</span> <span class="n">map_height</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="kd">local</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">astar.DIRECTION_EIGHT</span>
-<span class="kd">local</span> <span class="n">allocate</span> <span class="o">=</span> <span class="n">map_width</span> <span class="o">*</span> <span class="n">map_height</span>
-<span class="kd">local</span> <span class="n">typical_adjacent</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="kd">local</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">true</span>
-
-<span class="n">astar.setup</span><span class="p">(</span><span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">allocate</span><span class="p">,</span> <span class="n">typical_adjacent</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
-</code></pre></div><h3 id="astarset_mapworld">astar.set_map(<code>world</code>)<a href="#astarset_mapworld" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<p>Set your map data.<br>
-*Setting new map data reset the current cache.</p>
-<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">world</span> <span class="o">=</span> <span class="p">{</span>
-<span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span><span class="p">,</span>
-<span class="mi">0</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">1</span><span class="p">,</span>
-<span class="mi">0</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">0</span><span class="p">,</span>
-<span class="mi">0</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">2</span><span class="p">,</span>
-<span class="mi">2</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">1</span>
-<span class="p">}</span>
-
-<span class="n">astar.set_map</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
-</code></pre></div><h3 id="astarset_costscosts">astar.set_costs(<code>costs</code>)<a href="#astarset_costscosts" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<p>Set costs for your walkable tiles on your <code>world</code> table. This table keys determines the walkable area. In this example only numbered &ldquo;2&rdquo; tiles are walkable.</p>
-<p>Table&rsquo;s sum must be the <code>astar.DIRECTION_FOUR</code> or <code>astar.DIRECTION_EIGHT</code>. In this example we want to move 8 direction.</p>
-<p>*Setting new cost data reset the current cache.</p>
-<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">costs</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- E</span>
-        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- N</span>
-        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- W</span>
-        <span class="mf">1.0</span><span class="p">,</span> <span class="c1">-- S</span>
-        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- NE</span>
-        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- NW</span>
-        <span class="mf">1.41</span><span class="p">,</span> <span class="c1">-- SW</span>
-        <span class="mf">1.41</span> <span class="c1">-- SE</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">astar.set_costs</span><span class="p">(</span><span class="n">costs</span><span class="p">)</span>
-</code></pre></div><h3 id="astarsolvestart_x-start_y-end_x-end_y">astar.solve(<code>start_x</code>, <code>start_y</code>, <code>end_x</code>, <code>end_y</code>)<a href="#astarsolvestart_x-start_y-end_x-end_y" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<p>Solves the path.<br>
-Returns multiple values:</p>
-<h5 id="result"><code>result</code><a href="#result" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p><strong>astar.SOLVED</strong>: Path solved<br>
-<strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br>
-<strong>astar.START_END_SAME</strong>: Start and End is the same</p>
-<h5 id="size"><code>size</code><a href="#size" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Size of the path.</p>
-<h5 id="total_cost"><code>total_cost</code><a href="#total_cost" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Total cost of the path</p>
-<h5 id="path"><code>path</code><a href="#path" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Table with x and y coordinates. First value is the given start point.</p>
-<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="kd">local</span> <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="kd">local</span> <span class="n">end_x</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="kd">local</span> <span class="n">end_y</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="kd">local</span> <span class="n">result</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">total_cost</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">astar.solve</span><span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">)</span>
-
-<span class="kr">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.SOLVED</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;SOLVED&#34;</span><span class="p">)</span>
-	<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="n">ipairs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="kr">do</span>
-		<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Tile: &#34;</span><span class="p">,</span> <span class="n">v.x</span> <span class="o">..</span> <span class="s2">&#34;-&#34;</span> <span class="o">..</span> <span class="n">v.y</span><span class="p">)</span>
-	<span class="kr">end</span>
-<span class="kr">elseif</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.NO_SOLUTION</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;NO_SOLUTION&#34;</span><span class="p">)</span>
-<span class="kr">elseif</span> <span class="n">result</span> <span class="o">==</span> <span class="n">astar.START_END_SAME</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;START_END_SAME&#34;</span><span class="p">)</span>
-<span class="kr">end</span>
-</code></pre></div><h3 id="astarsolve_nearstart_x-start_y-max_cost">astar.solve_near(<code>start_x</code>, <code>start_y</code>, <code>max_cost</code>)<a href="#astarsolve_nearstart_x-start_y-max_cost" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<p>Finds the neighbours according to given cost.<br>
-Returns multiple values:</p>
-<h5 id="near_result"><code>near_result</code><a href="#near_result" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p><strong>astar.SOLVED</strong>: Path solved<br>
-<strong>astar.NO_SOLUTION</strong>: Can&rsquo;t find the path<br>
-<strong>astar.START_END_SAME</strong>: Start and End is the same</p>
-<h5 id="near_size"><code>near_size</code><a href="#near_size" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Size of the found neighbours.</p>
-<h5 id="nears"><code>nears</code><a href="#nears" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h5>
-<p>Table with x and y coordinates. First value is the given start point.</p>
-<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="kd">local</span> <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="kd">local</span> <span class="n">max_cost</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="c1">-- near</span>
-
-<span class="kd">local</span> <span class="n">near_result</span><span class="p">,</span> <span class="n">near_size</span><span class="p">,</span> <span class="n">nears</span> <span class="o">=</span> <span class="n">astar.solve_near</span><span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">max_cost</span><span class="p">)</span>
-
-<span class="kr">if</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.SOLVED</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;SOLVED&#34;</span><span class="p">)</span>
-	<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="n">ipairs</span><span class="p">(</span><span class="n">nears</span><span class="p">)</span> <span class="kr">do</span>
-		<span class="n">print</span><span class="p">(</span><span class="s2">&#34;Tile: &#34;</span><span class="p">,</span> <span class="n">v.x</span> <span class="o">..</span> <span class="s2">&#34;-&#34;</span> <span class="o">..</span> <span class="n">v.y</span><span class="p">)</span>
-	<span class="kr">end</span>
-<span class="kr">elseif</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.NO_SOLUTION</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;NO_SOLUTION&#34;</span><span class="p">)</span>
-<span class="kr">elseif</span> <span class="n">near_result</span> <span class="o">==</span> <span class="n">astar.START_END_SAME</span> <span class="kr">then</span>
-	<span class="n">print</span><span class="p">(</span><span class="s2">&#34;START_END_SAME&#34;</span><span class="p">)</span>
-<span class="kr">end</span>
-</code></pre></div><h3 id="astarreset_cache">astar.reset_cache()<a href="#astarreset_cache" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
-<p>If your state space is huge, occasionally call astar.reset_cache() to free unused memory.</p>
-
-			</div>
-			<hr class="post-end">
-			<footer class="post-info">
-				<p>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://selimanac.github.io/tags/defold">defold</a></span><span class="tag"><a href="https://selimanac.github.io/tags/game-development">game development</a></span>
-				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>688 Words</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-31 10:44 &#43;0300</p>
-			</footer>
-		</article>
-		<div class="post-nav thin">
-			<a class="next-post" href="https://selimanac.github.io/posts/physics-body-editor-for-defold/">
-				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Physics Body Editor for Defold [Deprecated]</span>
-			</a>
-			<a class="prev-post" href="https://selimanac.github.io/posts/human-trials-udgj-2/">
-				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Human Trials - UDGJ#2</span>
-			</a>
-		</div>
-		<div id="comments" class="thin">
-</div>
-	</main>
-
-	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p style="opacity: 0.6;">
-				
-			<a href="https://selimanac.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
-	 
-	   <br>
-	 
-		   Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a>
-	   </p>
-	</footer>
-
-
-
-	<script src="https://selimanac.github.io/js/bundle.min.795cc5560feaf6c78f267b98376472d6b3114b5d73a39e78541784254e68bf10.js" integrity="sha256-eVzFVg/q9sePJnuYN2Ry1rMRS11zo554VBeEJU5ovxA=" crossorigin="anonymous"></script>
-	
-
-</body>
-
-</html>
+<span class=kr>if</span> <span class=n>near_result</span> <span class=o>==</span> <span class=n>astar.SOLVED</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;SOLVED&#34;</span><span class=p>)</span>
+	<span class=kr>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>v</span> <span class=kr>in</span> <span class=n>ipairs</span><span class=p>(</span><span class=n>nears</span><span class=p>)</span> <span class=kr>do</span>
+		<span class=n>print</span><span class=p>(</span><span class=s2>&#34;Tile: &#34;</span><span class=p>,</span> <span class=n>v.x</span> <span class=o>..</span> <span class=s2>&#34;-&#34;</span> <span class=o>..</span> <span class=n>v.y</span><span class=p>)</span>
+	<span class=kr>end</span>
+<span class=kr>elseif</span> <span class=n>near_result</span> <span class=o>==</span> <span class=n>astar.NO_SOLUTION</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;NO_SOLUTION&#34;</span><span class=p>)</span>
+<span class=kr>elseif</span> <span class=n>near_result</span> <span class=o>==</span> <span class=n>astar.START_END_SAME</span> <span class=kr>then</span>
+	<span class=n>print</span><span class=p>(</span><span class=s2>&#34;START_END_SAME&#34;</span><span class=p>)</span>
+<span class=kr>end</span>
+</code></pre></div><h3 id=astarreset_cache>astar.reset_cache()<a href=#astarreset_cache class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>If your state space is huge, occasionally call astar.reset_cache() to free unused memory.</p></div><hr class=post-end><footer class=post-info><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://selimanac.github.io/tags/defold>defold</a></span><span class=tag><a href=https://selimanac.github.io/tags/game-development>game development</a></span></p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>688 Words</p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2019-07-31 10:44 +0300</p></footer></article><div class="post-nav thin"><a class=next-post href=https://selimanac.github.io/posts/physics-body-editor-for-defold/><span class=post-nav-label><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>&nbsp;Newer</span><br><span>Physics Body Editor for Defold [Deprecated]</span></a>
+<a class=prev-post href=https://selimanac.github.io/posts/human-trials-udgj-2/><span class=post-nav-label>Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><br><span>Human Trials - UDGJ#2</span></a></div><div id=comments class=thin></div></main><footer id=site-footer class="section-inner thin animated fadeIn faster"><p style=opacity:.6><a href=https://selimanac.github.io/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a><br>Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a></p></footer><script src=https://selimanac.github.io/js/bundle.min.795cc5560feaf6c78f267b98376472d6b3114b5d73a39e78541784254e68bf10.js integrity="sha256-eVzFVg/q9sePJnuYN2Ry1rMRS11zo554VBeEJU5ovxA=" crossorigin=anonymous></script></body></html>

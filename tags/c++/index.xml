@@ -1,30 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>c&#43;&#43; on Selim Anaç</title>
-    <link>https://selimanac.github.io/tags/c&#43;&#43;/</link>
-    <description>Recent content in c&#43;&#43; on Selim Anaç</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 17 Mar 2018 10:44:44 +0300</lastBuildDate>
-    
-	<atom:link href="https://selimanac.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>DAABBCC</title>
-      <link>https://selimanac.github.io/posts/daabbcc/</link>
-      <pubDate>Sat, 17 Mar 2018 10:44:44 +0300</pubDate>
-      
-      <guid>https://selimanac.github.io/posts/daabbcc/</guid>
-      <description>This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>c++ on Selim Anaç</title><link>https://selimanac.github.io/tags/c++/</link><description>Recent content in c++ on Selim Anaç</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 17 Mar 2018 10:44:44 +0300</lastBuildDate><atom:link href="https://selimanac.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml"/><item><title>DAABBCC</title><link>https://selimanac.github.io/posts/daabbcc/</link><pubDate>Sat, 17 Mar 2018 10:44:44 +0300</pubDate><guid>https://selimanac.github.io/posts/daabbcc/</guid><description>This is a Dynamic AABB Tree native extension with Branch and Bound Algorithm for Defold Engine. DAABBCC build by using Box2D’s Dynamic Tree.
 Special thanks to Randy Gaul for Branch and Bound implementation.
 HashTable and Array by Mathias Westerdahl
 Box2D Copyright (c) 2009 Erin Catto http://www.box2d.org
 What is DAABBCC?
-A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.</description>
-    </item>
-    
-  </channel>
-</rss>
+A Dynamic AABB Tree is a binary search algorithm for fast overlap testing. Dynamic AABB trees are good for general purpose use, and can handle moving objects very well.</description></item></channel></rss>
