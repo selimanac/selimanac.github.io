@@ -15,22 +15,28 @@ html {
 } */
 
 .post-mod{
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
-
+.video-player{
+margin-top: 40px;
+margin-bottom: 40px;
+}
+.itch-widget{
+  margin-top: 30px;
+}
 
 .logo-main {
   width: 3em;
   height: 3em;
   margin-bottom: 20px;
-  color: #e8eef2;
+  color: #5e5e5e;
   font-size: 2.5rem;
 }
 .logo-header {
   width: 2em;
   height: 2em;
-  color: #e8eef2;
+  color: #5e5e5e;
 }
 .hdr-left {
   justify-content: space-between;
